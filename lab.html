@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratório | Guilherme Zenni</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================================
+           ROOT & VARIABLES
+           ======================================================== */
+        :root {
+            --color-dark: #101010;
+            --color-olive: #b5bcad;
+            --color-light: #e6e6e6;
+            --color-white: #ffffff;
+            --color-grey: #8a8a8a;
+
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-tech: 'Inter Tight', sans-serif;
+            
+            --body-text-color: var(--color-grey);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--color-dark);
+            color: var(--color-white);
+            font-family: var(--font-tech);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ruído Cinematográfico muito sutil */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E');
+            mix-blend-mode: overlay;
+        }
+
+        /* ========================================================
+           TYPOGRAPHY SYSTEM
+           ======================================================== */
+        .title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 6rem); 
+            line-height: 0.9;
+            letter-spacing: 0.05em; 
+            text-transform: uppercase;
+            transform: scaleY(1.1); 
+            transform-origin: bottom left;
+        }
+
+        .subtitle {
+            font-family: var(--font-tech);
+            font-size: clamp(1.1rem, 2vw, 1.4rem); 
+            line-height: 1.5;
+            font-weight: 300;
+            color: var(--color-olive);
+            max-width: 800px;
+        }
+
+        .section-heading {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            letter-spacing: 0.05em;
+            color: var(--color-white);
+            transform: scaleY(1.1);
+            margin-bottom: 20px;
+        }
+
+        .body {
+            font-family: var(--font-tech);
+            font-size: 14px; 
+            line-height: 1.8; 
+            font-weight: 300;
+            color: var(--body-text-color);
+        }
+
+        .micro {
+            font-family: var(--font-tech);
+            font-size: 10px; 
+            letter-spacing: 0.2em; 
+            text-transform: uppercase;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .quote {
+            font-family: var(--font-tech);
+            font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+            line-height: 1.4;
+            font-weight: 400;
+            color: var(--color-white);
+            max-width: 900px;
+        }
+
+        a { color: inherit; text-decoration: none; transition: 0.3s; }
+        a:hover { color: var(--color-olive); }
+
+        /* ========================================================
+           LAYOUT & COMPONENTS
+           ======================================================== */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 40px 5vw; display: flex; justify-content: space-between;
+            z-index: 999; mix-blend-mode: difference;
+        }
+
+        section { position: relative; width: 100%; padding: 120px 5vw; }
+        
+        .grid-layout { display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px; }
+
+        .img-placeholder {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            color: var(--color-grey);
+            text-align: center;
+            padding: 40px;
+        }
+
+        .img-placeholder img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 2;
+        }
+
+        .chip {
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 10px 18px;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            color: var(--color-grey);
+            font-size: 11px;
+            letter-spacing: 0.05em;
+        }
+
+        .line-separator {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            margin: 100px 0;
+        }
+
+        /* Composição Tipográfica (Fluxo Exp 02) */
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 0;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.01);
+        }
+
+        .flow-step {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--color-white);
+            letter-spacing: 0.1em;
+            transform: scaleY(1.1);
+            text-align: center;
+        }
+
+        .flow-arrow {
+            font-family: var(--font-tech);
+            color: var(--color-olive);
+            font-size: 1.2rem;
+            margin: 20px 0;
+            opacity: 0.7;
+        }
+
+        /* Lista de Ambientes */
+        .env-list {
+            list-style: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .env-list li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            color: var(--color-white);
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 0.05em;
+            transform: scaleY(1.1);
+            transform-origin: left;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Animações */
+        .fade-in-up {
+            opacity: 0;
+            animation: safeFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.2s; 
+        }
+
+        @keyframes safeFadeIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 900px) {
+            .grid-layout { display: flex; flex-direction: column; gap: 40px; }
+            .hide-mobile { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="micro">[ ← VOLTAR / PORTFÓLIO ]</a>
+        <div class="micro hide-mobile">DOC. ID: LAB-001 // EXPERIMENTAL ARCHIVE</div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section style="padding-top: 180px; padding-bottom: 80px;">
+        <div class="grid-layout fade-in-up">
+            <div style="grid-column: 1 / 13; margin-bottom: 60px;">
+                <h1 class="title">LABORATÓRIO</h1>
+                <h2 class="subtitle" style="margin-top: 20px;">
+                    Explorações envolvendo comportamento, sistemas digitais, inteligência artificial e novas formas de construir experiências.
+                </h2>
+            </div>
+            
+            <div style="grid-column: 1 / 6;">
+                <p class="body">
+                    Mantenho uma prática contínua de experimentação paralela aos projetos profissionais. Esses estudos funcionam como um espaço para investigar novas tecnologias, testar hipóteses e compreender como sistemas digitais podem se tornar mais claros, úteis e significativos para as pessoas.
+                </p>
+            </div>
+            
+            <div style="grid-column: 7 / 13;">
+                <p class="body">
+                    Meu interesse está menos nas ferramentas e mais nos comportamentos, relações e decisões que elas tornam possíveis.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVISOR -->
+    <div style="padding: 0 5vw;"><div class="line-separator" style="margin: 0;"></div></div>
+
+    <!-- EXPERIMENTO 01 -->
+    <section>
+        <div class="grid-layout reveal">
+            <div style="grid-column: 1 / 13; margin-bottom: 40px;">
+                <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">/// EXPERIMENTO 01</div>
+                <h3 class="section-heading">CARDS, IDENTIDADE E CONEXÃO HUMANA</h3>
+            </div>
+
+            <!-- Imagem Principal Grande -->
+            <div style="grid-column: 1 / 13; margin-bottom: 60px;">
+                <div class="img-placeholder" style="height: 70vh;">
+                    <div class="micro">
+                        [ INSERIR IMAGEM REAL AQUI ]<br><br>
+                        PRIORIZAR:<br>
+                        - CARTAS DOS COLABORADORES<br>
+                        - INTERFACE PRINCIPAL<br>
+                        - VISUALIZAÇÃO EM GRAFO<br>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contexto e Solução -->
+            <div style="grid-column: 1 / 6;">
+                <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// CONTEXTO</div>
+                <p class="body">
+                    A maioria dos sistemas corporativos organiza informações de forma eficiente, mas raramente cria conexão emocional com quem os utiliza.
+                </p>
+                <p class="body" style="margin-top: 15px; color: var(--color-white); font-weight: 400;">
+                    O experimento partiu da seguinte pergunta:<br>
+                    Como tornar estruturas organizacionais mais compreensíveis, memoráveis e envolventes?
+                </p>
+            </div>
+
+            <div style="grid-column: 7 / 13;">
+                <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// SOLUÇÃO</div>
+                <p class="body">
+                    Foi desenvolvido um sistema baseado em cartas colecionáveis digitais inspiradas em jogos e álbuns de coleção. Cada colaborador possuía uma representação visual própria, acompanhada de habilidades, responsabilidades e conexões com outras áreas da organização.
+                </p>
+                <p class="body" style="margin-top: 15px;">
+                    Além das cartas, o sistema incluía uma visualização conectiva inspirada em grafos de conhecimento, permitindo explorar relações entre pessoas, competências e estruturas organizacionais.
+                </p>
+
+                <div style="margin-top: 40px;">
+                    <div class="micro" style="margin-bottom: 20px; color: var(--color-grey);">TEMAS EXPLORADOS:</div>
+                    <span class="chip">Engajamento</span>
+                    <span class="chip">Gamificação</span>
+                    <span class="chip">Visualização de informação</span>
+                    <span class="chip">Conhecimento organizacional</span>
+                    <span class="chip">Experiência emocional</span>
+                    <span class="chip">Sistemas conectados</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVISOR -->
+    <div style="padding: 0 5vw;"><div class="line-separator" style="margin: 0;"></div></div>
+
+    <!-- EXPERIMENTO 02 (Tipográfico / Sem Imagens) -->
+    <section>
+        <div class="grid-layout reveal">
+            <div style="grid-column: 1 / 13; margin-bottom: 60px;">
+                <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">/// EXPERIMENTO 02</div>
+                <h3 class="section-heading">IA APLICADA AO PROCESSO DE PRODUTO</h3>
+            </div>
+
+            <!-- Contexto e Observação -->
+            <div style="grid-column: 1 / 6; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// CONTEXTO</div>
+                    <p class="body">
+                        Atualmente exploro ambientes assistidos por inteligência artificial como parte do processo de pesquisa, síntese, ideação e construção de produtos digitais.
+                    </p>
+                    <p class="body" style="margin-top: 15px;">
+                        O objetivo não é substituir pensamento crítico ou tomada de decisão humana, mas ampliar capacidade de investigação e acelerar ciclos de aprendizagem.
+                    </p>
+                </div>
+
+                <div style="margin-top: 60px; padding: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(181, 188, 173, 0.05);">
+                    <div class="micro" style="margin-bottom: 15px; color: var(--color-olive);">/// OBSERVAÇÃO</div>
+                    <p class="body" style="font-size: 12px; color: rgba(255,255,255,0.8);">
+                        As ferramentas mudam rapidamente. Os princípios de observação, interpretação e tomada de decisão continuam sendo o elemento central do processo.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Fluxo (Design Tipográfico) -->
+            <div style="grid-column: 7 / 9;">
+                <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// FLUXO ATUAL</div>
+                <div class="flow-container">
+                    <div class="flow-step">PROBLEMA</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">PESQUISA</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">SÍNTESE</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">HIPÓTESES</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">PROTÓTIPO</div>
+                    <div class="flow-arrow">↓</div>
+                    <div class="flow-step">VALIDAÇÃO</div>
+                </div>
+            </div>
+
+            <!-- Ambientes (Lista Editorial) -->
+            <div style="grid-column: 10 / 13;">
+                <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// AMBIENTES UTILIZADOS</div>
+                <ul class="env-list">
+                    <li><span>CLAUDE</span> <span class="micro" style="color: var(--color-grey); transform: none;">01</span></li>
+                    <li><span>GOOGLE AI STUDIO</span> <span class="micro" style="color: var(--color-grey); transform: none;">02</span></li>
+                    <li><span>MCPS</span> <span class="micro" style="color: var(--color-grey); transform: none;">03</span></li>
+                    <li><span>OBSIDIAN</span> <span class="micro" style="color: var(--color-grey); transform: none;">04</span></li>
+                    <li><span>FIGMA</span> <span class="micro" style="color: var(--color-grey); transform: none;">05</span></li>
+                    <li><span>NO-CODE</span> <span class="micro" style="color: var(--color-grey); transform: none;">06</span></li>
+                    <li><span>LLMS LOCAIS</span> <span class="micro" style="color: var(--color-grey); transform: none;">07</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENCERRAMENTO (Editorial Quote) -->
+    <section style="background: var(--color-olive); color: var(--color-dark); margin-top: 80px;">
+        <div class="grid-layout reveal">
+            <div style="grid-column: 1 / 10;">
+                <div class="micro" style="margin-bottom: 40px; color: rgba(0,0,0,0.5);">/// ENCERRAMENTO</div>
+                <p class="quote" style="color: var(--color-dark);">
+                    "Tecnologias evoluem. Ferramentas surgem e desaparecem. O interesse que permanece é compreender como pessoas, linguagem, comportamento e sistemas se influenciam mutuamente."
+                </p>
+                <p class="body" style="margin-top: 40px; color: rgba(0,0,0,0.8); font-weight: 500;">
+                    Grande parte dos experimentos apresentados aqui existe justamente para investigar essas relações.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER NAV -->
+    <section style="padding: 100px 5vw;">
+        <div class="grid-layout reveal">
+            <div style="grid-column: 1 / 13; text-align: center;">
+                <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">RETORNAR</div>
+                <a href="index.html" class="title" style="font-size: 2.5rem;">← VOLTAR PARA A HOME</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- JS PARA ANIMAÇÃO DE REVEAL AO SCROLL -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { root: null, rootMargin: '0px', threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guilherme Zenni | Portfólio</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================================
+           ROOT & VARIABLES (Minimalist Palette)
+           ======================================================== */
+        :root {
+            --color-dark: #101010;
+            --color-olive: #b5bcad;
+            --color-light: #e6e6e6;
+            --color-white: #f0f0f0;
+            --color-grey: #858585;
+
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-tech: 'Inter Tight', sans-serif;
+            
+            --body-text-color: var(--color-grey);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--color-dark);
+            color: var(--color-white);
+            font-family: var(--font-tech);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ruído Cinematográfico muito sutil */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
+            mix-blend-mode: overlay;
+        }
+
+        /* ========================================================
+           TYPOGRAPHY SYSTEM (Minimalista e Espaçado)
+           ======================================================== */
+        
+        .title {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3.2vw, 3.8rem); 
+            line-height: 1;
+            letter-spacing: 0.05em; 
+            word-spacing: 0.15em; 
+            text-transform: uppercase;
+            transform: scaleY(1.1); 
+            transform-origin: bottom left;
+        }
+
+        .single-line {
+            white-space: nowrap;
+        }
+
+        .body {
+            font-family: var(--font-tech);
+            font-size: 13px; 
+            line-height: 1.8; 
+            font-weight: 300;
+            color: var(--body-text-color);
+            max-width: 500px;
+            letter-spacing: 0.02em;
+            word-spacing: 0.05em; 
+        }
+
+        .micro {
+            font-family: var(--font-tech);
+            font-size: 9px; 
+            letter-spacing: 0.25em; 
+            text-transform: uppercase;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        /* ========================================================
+           LAYOUT & COMPONENTS
+           ======================================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 5vw;
+            display: flex;
+            justify-content: space-between;
+            z-index: 999;
+            mix-blend-mode: difference;
+        }
+
+        section {
+            position: relative;
+            width: 100%;
+            padding: 180px 5vw; 
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 14px 32px;
+            border-radius: 50px;
+            width: fit-content;
+            transition: 0.4s ease;
+        }
+        .cta-btn:hover { background: var(--color-white); color: var(--color-dark); }
+
+        /* ========================================================
+           HERO SECTION & IMAGE BLENDING
+           ======================================================== */
+        .hero {
+            min-height: 100vh;
+            padding: 0 5vw;
+            display: flex;
+            align-items: center;
+            background-color: var(--color-dark);
+            position: relative;
+        }
+
+        /* Imagem corrigida: Fade linear suave para a direita, sem distorção oval */
+        .hero-img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 50vw;
+            height: 100vh;
+            background: url('hero_gz.png') center/cover no-repeat;
+            mask-image: linear-gradient(to right, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        .hero-content {
+            grid-column: 7 / 13;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-cluster {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border-left: 1px solid rgba(255,255,255,0.15);
+            padding-left: 20px;
+            margin-top: 30px;
+        }
+
+        /* ========================================================
+           SECTIONS
+           ======================================================== */
+        .olive-section {
+            background-color: var(--color-olive);
+            color: var(--color-dark);
+            --body-text-color: rgba(0,0,0,0.7);
+        }
+
+        .bg-text {
+            position: absolute; top: 50%; left: 5vw; transform: translateY(-50%) scaleY(1.2);
+            font-family: var(--font-display); font-size: 25vw; color: rgba(0,0,0,0.02);
+            pointer-events: none; z-index: 0; line-height: 0.8; margin: 0;
+        }
+
+        .list-table { border-top: 1px solid var(--color-dark); margin-top: 40px; }
+        .list-row {
+            display: grid; grid-template-columns: 50px 1fr; padding: 20px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .dark-section { background-color: var(--color-dark); }
+        
+        /* Reutilizando a imagem hero_gz de forma sutil na seção dark */
+        .section-img {
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 40vw; height: 100%;
+            background: url('hero_gz.png') center right/cover no-repeat;
+            mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .skills-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1px; background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05);
+            margin-top: 40px;
+        }
+        .skill-item { background-color: var(--color-dark); padding: 30px 20px; }
+
+        .project-list { list-style: none; margin-top: 60px; }
+        .project-item {
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding: 40px 0;
+            display: flex; align-items: center; justify-content: space-between; transition: 0.4s;
+        }
+        .project-item:first-child { border-top: 1px solid rgba(255,255,255,0.1); }
+        .project-item:hover { padding-left: 30px; color: var(--color-olive); }
+
+        .light-section {
+            background-color: var(--color-light);
+            color: var(--color-dark);
+            --body-text-color: rgba(0,0,0,0.7);
+            text-align: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        /* ========================================================
+           RESPONSIVE & ANIMATIONS
+           ======================================================== */
+        @media (max-width: 900px) {
+            .grid-layout { display: flex; flex-direction: column; gap: 40px; }
+            .hero-img { width: 100vw; height: 50vh; mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); }
+            .hero-content { grid-column: 1 / -1; margin-top: 30vh; }
+            .hero-cluster { flex-direction: column; border-left: none; padding-left: 0; gap: 20px; }
+            .hide-mobile { display: none; }
+            .single-line { white-space: normal; } 
+        }
+
+        /* Animação que roda imediatamente no carregamento (Para o Hero) */
+        .fade-in-up {
+            opacity: 0;
+            animation: safeFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.2s; 
+        }
+
+        @keyframes safeFadeIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animação ao descer o Scroll */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: opacity 1s ease-out, transform 1s ease-out; 
+        }
+        .reveal.active { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="micro">[ 2026 ] /// GUILHERME ZENNI</div>
+        <div class="micro hide-mobile">BR / LAT: -27.0253 LONG: -48.6539</div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-img"></div>
+        
+        <div class="grid-layout" style="width: 100%;">
+            <!-- Classe fade-in-up não depende de scroll. Vai carregar 100% das vezes. -->
+            <div class="hero-content fade-in-up">
+                
+                <h1 class="title single-line">SISTEMAS SÃO CULTURA.</h1>
+                
+                <div class="hero-cluster">
+                    <p class="body">
+                        Contexto, comportamento e linguagem moldam a forma como produtos são percebidos, utilizados e incorporados ao cotidiano.
+                    </p>
+                    <p class="body">
+                        Transformando sistemas complexos em experiências mais claras.
+                    </p>
+                </div>
+
+                <div style="margin-top: 40px; margin-left: 20px;">
+                    <a href="#projetos" class="cta-btn micro">
+                        [ VER PROJETOS ]
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 01. POSICIONAMENTO -->
+    <section class="olive-section">
+        <h2 class="bg-text">ZEISTGEIST</h2>
+        
+        <div class="grid-layout" style="position: relative; z-index: 10;">
+            <div style="grid-column: 1 / 5;" class="reveal">
+                <div class="micro">/// 01 — POSICIONAMENTO</div>
+                <p class="body" style="margin-top: 40px; font-weight: 500;">
+                    Meu trabalho costuma acontecer na interseção entre:
+                </p>
+                <div class="list-table">
+                    <div class="list-row title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none; margin: 0; letter-spacing: 0.02em;"><span>1</span>Produto</div>
+                    <div class="list-row title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none; margin: 0; letter-spacing: 0.02em;"><span>2</span>Operação</div>
+                    <div class="list-row title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none; margin: 0; letter-spacing: 0.02em;"><span>3</span>Comportamento</div>
+                    <div class="list-row title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none; margin: 0; letter-spacing: 0.02em;"><span>4</span>Linguagem</div>
+                    <div class="list-row title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none; margin: 0; letter-spacing: 0.02em;"><span>5</span>Negócio</div>
+                </div>
+            </div>
+
+            <div style="grid-column: 7 / 13; padding-top: 60px;" class="reveal">
+                <h3 class="title single-line" style="margin-bottom: 30px;">
+                    ENTRE REGRAS, PESSOAS E SISTEMAS.
+                </h3>
+               
+                <p class="body">
+                    Experiência projetando produtos onde tecnologia, operação e comportamento precisam funcionar em conjunto para transformar problemas complexos em jornadas mais claras.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02. VISÃO & 03. ATUAÇÃO -->
+    <section class="dark-section">
+        <div class="section-img"></div>
+        
+        <div class="grid-layout" style="position: relative; z-index: 10;">
+            <div style="grid-column: 1 / 10;" class="reveal">
+                <div class="micro" style="color: var(--color-grey);">/// 02 — VISÃO</div>
+                
+                <h2 class="title single-line" style="margin: 40px 0;">PRODUTOS DIGITAIS NÃO EXISTEM ISOLADOS.</h2>
+                
+                <p class="body">
+                    Contexto, comportamento, linguagem e cultura influenciam diretamente a forma como sistemas são percebidos, utilizados e incorporados ao cotidiano.
+                </p>
+            </div>
+        </div>
+
+        <div style="margin-top: 180px; position: relative; z-index: 10;" class="reveal">
+            <div class="micro" style="color: var(--color-grey); margin-bottom: 30px;">/// 03 — ATUAÇÃO E EXPERTISE</div>
+            <div class="skills-grid">
+                <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Product Design</div>
+                <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">UX/UI</div>
+                <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Design Systems</div>
+                <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Research</div>
+                <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Discovery</div>
+                <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Fluxos complexos</div>
+                <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Figma</div>
+                <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Sistemas SaaS</div>
+                <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">IA em produto</div>
+                <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Estratégia visual</div>
+                <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Direção de interface</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04. PROJETOS -->
+    <section id="projetos" class="dark-section" style="padding-top: 50px;">
+        <div class="micro" style="color: var(--color-grey);">/// 04 — SELEÇÃO DE PROJETOS</div>
+        
+        <ul class="project-list reveal">
+            <li class="project-item">
+                <span class="title" style="margin: 0; transform-origin: left center;">WTM International</span>
+                <span class="micro">[ VIEW ]</span>
+            </li>
+            <li class="project-item">
+                <span class="title" style="margin: 0; transform-origin: left center;">Importax</span>
+                <span class="micro">[ VIEW ]</span>
+            </li>
+            <li class="project-item">
+                <span class="title" style="margin: 0; transform-origin: left center;">NGK</span>
+                <span class="micro">[ VIEW ]</span>
+            </li>
+            <li class="project-item">
+                <span class="title" style="margin: 0; transform-origin: left center;">Projetos Experimentais</span>
+                <span class="micro">[ VIEW ]</span>
+            </li>
+            <li class="project-item">
+                <span class="title" style="margin: 0; transform-origin: left center;">Ferramentas IA / No-Code</span>
+                <span class="micro">[ VIEW ]</span>
+            </li>
+        </ul>
+    </section>
+
+    <!-- 05. CONTATO -->
+    <section class="light-section">
+        <div class="micro reveal">/// 05 — CONTATO</div>
+        
+        <div class="title single-line reveal" style="margin: 60px 0;">
+            GUILHERME ZENNI
+        </div>
+
+        <div style="display: flex; gap: 40px; margin-bottom: 60px; flex-wrap: wrap; justify-content: center;" class="reveal">
+            <p class="micro" style="color: rgba(0,0,0,0.6);">CAMBORIÚ - SC - BRASIL</p>
+            <p class="micro" style="color: rgba(0,0,0,0.6);">WHATSAPP: +55 48 99992-1816</p>
+        </div>
+
+        <a href="https://wa.me/5548999921816" class="cta-btn micro reveal" style="border-color: var(--color-dark); color: var(--color-dark);">
+            [ ENTRAR EM CONTATO ]
+        </a>
+    </section>
+
+    <!-- JS REESCRITO: À prova de falhas para o conteúdo não sumir -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            // Verificação de segurança: Se os elementos já estão visíveis na tela quando ela carrega, apareça imediatamente.
+            setTimeout(() => {
+                reveals.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight) {
+                        el.classList.add('active');
+                    }
+                });
+            }, 100);
+
+            // Observer para o scroll do resto do site
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        obs.unobserve(entry.target); // Para de observar assim que revelar
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px 0px -5% 0px', 
+                threshold: 0
+            });
+
+            reveals.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
