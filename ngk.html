@@ -12,14 +12,14 @@
 
     <style>
         /* ========================================================
-           ROOT & VARIABLES
+           00. CANONICAL DESIGN SYSTEM 
            ======================================================== */
         :root {
             --color-dark: #101010;
             --color-olive: #b5bcad;
             --color-light: #e6e6e6;
-            --color-white: #ffffff;
-            --color-grey: #8a8a8a;
+            --color-white: #f0f0f0;
+            --color-grey: #858585;
 
             --font-display: 'Bebas Neue', sans-serif;
             --font-tech: 'Inter Tight', sans-serif;
@@ -29,32 +29,36 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* Blueprint Background */
         body {
             background-color: var(--color-dark);
             color: var(--color-white);
             font-family: var(--font-tech);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
 
-        /* Ruído Cinematográfico muito sutil */
+        /* Cinematic Noise */
         .noise-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none;
-            z-index: 9999;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 9999;
             background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E');
             mix-blend-mode: overlay;
         }
 
         /* ========================================================
-           TYPOGRAPHY SYSTEM
+           01. TYPOGRAPHY HIERARCHY
            ======================================================== */
         .title {
             font-family: var(--font-display);
-            font-size: clamp(2.5rem, 5vw, 6rem); 
-            line-height: 0.9;
+            font-size: clamp(1.6rem, 3vw, 3.5rem); 
+            line-height: 1;
             letter-spacing: 0.05em; 
+            word-spacing: 0.15em; 
             text-transform: uppercase;
             transform: scaleY(1.1); 
             transform-origin: bottom left;
@@ -62,34 +66,27 @@
 
         .subtitle {
             font-family: var(--font-tech);
-            font-size: clamp(1.1rem, 2vw, 1.4rem); 
-            line-height: 1.5;
-            font-weight: 300;
+            font-size: clamp(1.1rem, 1.6vw, 2rem); 
+            line-height: 1.3;
+            letter-spacing: 0.02em;
             color: var(--color-olive);
-            max-width: 800px;
-        }
-
-        .section-heading {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            letter-spacing: 0.05em;
-            color: var(--color-white);
-            transform: scaleY(1.1);
-            margin-bottom: 20px;
+            max-width: 700px;
         }
 
         .body {
             font-family: var(--font-tech);
-            font-size: 14px; 
+            font-size: 13px; 
             line-height: 1.8; 
             font-weight: 300;
             color: var(--body-text-color);
+            max-width: 500px;
+            letter-spacing: 0.02em;
         }
 
         .micro {
             font-family: var(--font-tech);
-            font-size: 10px; 
-            letter-spacing: 0.2em; 
+            font-size: 9px; 
+            letter-spacing: 0.25em; 
             text-transform: uppercase;
             font-weight: 500;
             line-height: 1.6;
@@ -97,18 +94,21 @@
 
         .quote {
             font-family: var(--font-tech);
-            font-size: clamp(1.5rem, 2.5vw, 2.2rem);
-            line-height: 1.4;
-            font-weight: 400;
-            color: var(--color-olive);
+            font-size: clamp(1.4rem, 2vw, 1.8rem);
+            line-height: 1.5;
+            font-weight: 300;
+            color: var(--color-white);
             max-width: 900px;
+            border-left: 2px solid var(--color-olive);
+            padding-left: 30px;
         }
 
+        .single-line { white-space: nowrap; }
         a { color: inherit; text-decoration: none; transition: 0.3s; }
         a:hover { color: var(--color-olive); }
 
         /* ========================================================
-           LAYOUT & COMPONENTS
+           02. LAYOUT & SPACING SYSTEM
            ======================================================== */
         header {
             position: fixed; top: 0; left: 0; width: 100%;
@@ -116,73 +116,77 @@
             z-index: 999; mix-blend-mode: difference;
         }
 
-        /* Respiro (Espaço negativo gigantesto) */
-        section { position: relative; width: 100%; padding: 160px 5vw; }
+        /* Canonical Vertical Rhythm */
+        section { position: relative; width: 100%; padding: 120px 5vw; } 
         
-        .grid-layout { display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px; }
-        
-        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+        .grid-layout { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 
-        /* Estilo Editorial para Imagens (Placeholders Técnicos) */
-        .img-placeholder {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.02);
+        /* ========================================================
+           03. COMPONENTS (Metadata, Chips, Checklists, Images)
+           ======================================================== */
+        .doc-panel {
             border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            color: var(--color-grey);
-            text-align: center;
+            background: rgba(0, 0, 0, 0.4);
             padding: 40px;
+            backdrop-filter: blur(5px);
         }
-
-        /* Retira a borda ao inserir a imagem real */
-        .img-placeholder img {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: 2;
+        .doc-line {
+            border-bottom: 1px dashed rgba(255,255,255,0.15);
+            padding: 20px 0; display: flex; justify-content: space-between; align-items: center;
         }
+        .doc-line:last-child { border-bottom: none; padding-bottom: 0; }
 
-        /* Tags Estilo Documentação */
+        /* Chips: Sharp corners */
         .chip {
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 20px;
-            display: inline-block;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            color: var(--color-white);
-            font-size: 11px;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            padding: 10px 16px; display: inline-block;
+            margin-right: 8px; margin-bottom: 8px;
+            color: var(--color-white); font-size: 10px; letter-spacing: 0.05em;
+            text-transform: uppercase; border-radius: 0px;
         }
 
-        .line-separator {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            width: 100%;
-            margin: 80px 0;
+        .checklist { list-style: none; margin-top: 20px; }
+        .checklist li {
+            position: relative; padding-left: 20px; margin-bottom: 15px;
+            color: var(--color-white); font-family: var(--font-tech);
+            font-size: 13px; font-weight: 300; letter-spacing: 0.02em;
+        }
+        .checklist li::before {
+            content: '[+]'; position: absolute; left: 0; top: 0;
+            color: var(--color-olive); font-size: 10px; font-family: var(--font-tech);
         }
 
-        /* Animações */
-        .fade-in-up {
-            opacity: 0;
-            animation: safeFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 0.2s; 
+        /* Image Presentation with Instruction Blocks */
+        .img-placeholder {
+            width: 100%; background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden; color: var(--color-grey);
+            text-align: center; padding: 40px;
+        }
+        .img-placeholder img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 2;
+        }
+        .instruction-text {
+            position: relative; z-index: 3; max-width: 400px;
+            background: var(--color-dark); padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        @keyframes safeFadeIn {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
+        /* ========================================================
+           04. ANIMATIONS
+           ======================================================== */
+        .fade-in-up { opacity: 0; animation: safeFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.2s; }
+        @keyframes safeFadeIn { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 900px) {
             .grid-layout { display: flex; flex-direction: column; gap: 40px; }
-            .grid-4 { grid-template-columns: 1fr; gap: 40px; }
+            .grid-4, .grid-2 { grid-template-columns: 1fr; gap: 20px; }
             .hide-mobile { display: none; }
         }
     </style>
@@ -191,16 +195,16 @@
 
     <div class="noise-overlay"></div>
 
-    <!-- HEADER -->
+    <!-- HEADER (Standard Navigation Pattern) -->
     <header>
         <a href="index.html" class="micro">[ ← VOLTAR / PORTFÓLIO ]</a>
-        <div class="micro hide-mobile">CASE: NGK LATAM // DIGITAL RESTRUCTURING</div>
+        <div class="micro hide-mobile">DOC. ID: NGK // DIGITAL RESTRUCTURING</div>
     </header>
 
-    <!-- PROJECT TITLE & HERO IMAGE -->
-    <section style="padding-top: 160px; padding-bottom: 80px;">
-        <div class="grid-layout fade-in-up">
-            <div style="grid-column: 1 / 13; margin-bottom: 60px;">
+    <!-- SECTION 1: TITLE & HERO IMAGE -->
+    <section style="min-height: 90vh; display: flex; align-items: center;">
+        <div class="grid-layout fade-in-up" style="width: 100%;">
+            <div style="grid-column: 1 / 13; margin-bottom: 40px;">
                 <div class="micro" style="margin-bottom: 20px; color: var(--color-grey);">/// 01.00 — CASE STUDY</div>
                 <h1 class="title">NGK LATAM</h1>
                 <h2 class="subtitle" style="margin-top: 20px;">
@@ -209,24 +213,28 @@
             </div>
             
             <div style="grid-column: 1 / 13;">
-                <!-- HERO IMAGE PLACEHOLDER -->
-                <div class="img-placeholder" style="height: 70vh;">
-                    <div class="micro">
-                        [ INSERIR IMAGEM AQUI ]<br><br>
-                        HERO: CROP BONITO DA PRANCHA COMPLETA<br>
-                        <span style="color: var(--color-olive);">ANTES ↓ ANÁLISE ↓ PROPOSTA</span>
+                <div class="img-placeholder" style="height: 75vh;">
+                    <div class="instruction-text">
+                        <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ HERO IMAGE ]</div>
+                        <p class="body" style="font-size: 12px; line-height: 1.6;">
+                            Use um crop bonito da prancha completa.<br>
+                            Não mostre apenas as telas novas.<br><br>
+                            Mostre:<br>
+                            <span style="color: var(--color-white); font-weight: 500;">ANTES ↓ ANÁLISE ↓ PROPOSTA</span><br><br>
+                            Porque isso vende raciocínio.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTEXTO & DESAFIO -->
-    <section style="padding-top: 80px;">
+    <!-- SECTION 2: CONTEXTO & DESAFIO -->
+    <section style="background: rgba(0,0,0,0.2); border-top: 1px solid rgba(255,255,255,0.05);">
         <div class="grid-layout reveal">
-            <!-- Coluna Esquerda: Contexto -->
+            <!-- Contexto -->
             <div style="grid-column: 1 / 6;">
-                <div class="micro" style="margin-bottom: 20px; color: var(--color-grey);">/// CONTEXTO</div>
+                <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// 02.00 — CONTEXTO</div>
                 <p class="body">
                     A NGK possui um amplo portfólio de produtos, conteúdos técnicos e iniciativas voltadas para diferentes públicos do setor automotivo.
                 </p>
@@ -235,10 +243,10 @@
                 </p>
             </div>
 
-            <!-- Coluna Direita: Desafio -->
+            <!-- Desafio -->
             <div style="grid-column: 7 / 13;">
-                <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// DESAFIO</div>
-                <h3 class="section-heading">O DESAFIO</h3>
+                <div class="micro" style="margin-bottom: 20px; color: var(--color-grey);">/// 02.01 — O DESAFIO</div>
+                <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">O DESAFIO</h3>
                 <p class="body">
                     A estrutura existente apresentava oportunidades de melhoria relacionadas à navegação, hierarquia de conteúdo e descoberta de informações relevantes.
                 </p>
@@ -247,26 +255,30 @@
                 </p>
             </div>
         </div>
+    </section>
 
-        <div class="line-separator reveal"></div>
-
-        <!-- DIAGNÓSTICO (IMAGEM) & ATUAÇÃO -->
+    <!-- SECTION 3: DIAGNÓSTICO & ATUAÇÃO -->
+    <section>
         <div class="grid-layout reveal">
             <!-- Imagem do diagnóstico -->
             <div style="grid-column: 1 / 8;">
                 <div class="img-placeholder" style="height: 60vh;">
-                    <div class="micro">
-                        [ INSERIR IMAGEM AQUI ]<br><br>
-                        CROP DO DIAGNÓSTICO DA COLUNA ESQUERDA<br>
-                        A PARTE MAIS VALIOSA DA PRANCHA
+                    <div class="instruction-text">
+                        <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ IMAGEM: DIAGNÓSTICO ]</div>
+                        <p class="body" style="font-size: 12px; line-height: 1.6;">
+                            Aqui entra um crop da coluna esquerda.<br>
+                            A parte do diagnóstico.<br>
+                            A parte mais valiosa da prancha.
+                        </p>
                     </div>
                 </div>
             </div>
 
             <!-- Atuação -->
-            <div style="grid-column: 9 / 13; padding-top: 20px;">
-                <h3 class="section-heading">MINHA ATUAÇÃO</h3>
-                <div style="margin-top: 30px;">
+            <div style="grid-column: 9 / 13; display: flex; flex-direction: column; justify-content: center;">
+                <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// 03.00 — MINHA ATUAÇÃO</div>
+                <h3 class="title" style="font-size: 2.5rem; margin-bottom: 30px;">MINHA ATUAÇÃO</h3>
+                <div>
                     <span class="chip">UX Strategy</span>
                     <span class="chip">Information Architecture</span>
                     <span class="chip">UI Design</span>
@@ -278,69 +290,90 @@
         </div>
     </section>
 
-    <!-- PROCESSO EM 4 COLUNAS -->
-    <section style="background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
-        <div class="micro reveal" style="margin-bottom: 60px; color: var(--color-olive);">/// 02.00 — PROCESSO DE REDESENHO</div>
+    <!-- SECTION 4: PROCESSO -->
+    <section style="background: rgba(255,255,255,0.01); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+        <div class="micro reveal" style="margin-bottom: 60px; color: var(--color-olive);">/// 04.00 — PROCESSO</div>
         
         <div class="grid-4 reveal">
             <div>
-                <div class="title" style="font-size: 3rem; color: var(--color-grey); margin-bottom: 20px;">01</div>
+                <div class="title" style="font-size: 2.5rem; color: var(--color-grey); margin-bottom: 20px;">01</div>
                 <h4 class="micro" style="color: var(--color-white); margin-bottom: 15px;">DIAGNÓSTICO</h4>
                 <p class="body" style="font-size: 13px;">Mapeamento dos principais pontos de fricção da experiência existente.</p>
             </div>
             
             <div>
-                <div class="title" style="font-size: 3rem; color: var(--color-grey); margin-bottom: 20px;">02</div>
+                <div class="title" style="font-size: 2.5rem; color: var(--color-grey); margin-bottom: 20px;">02</div>
                 <h4 class="micro" style="color: var(--color-white); margin-bottom: 15px;">ESTRUTURA</h4>
                 <p class="body" style="font-size: 13px;">Reorganização da arquitetura de informação e dos fluxos de navegação.</p>
             </div>
 
             <div>
-                <div class="title" style="font-size: 3rem; color: var(--color-grey); margin-bottom: 20px;">03</div>
+                <div class="title" style="font-size: 2.5rem; color: var(--color-grey); margin-bottom: 20px;">03</div>
                 <h4 class="micro" style="color: var(--color-white); margin-bottom: 15px;">SISTEMA</h4>
                 <p class="body" style="font-size: 13px;">Definição de diretrizes visuais e padrões de interface.</p>
             </div>
 
             <div>
-                <div class="title" style="font-size: 3rem; color: var(--color-olive); margin-bottom: 20px;">04</div>
+                <div class="title" style="font-size: 2.5rem; color: var(--color-olive); margin-bottom: 20px;">04</div>
                 <h4 class="micro" style="color: var(--color-white); margin-bottom: 15px;">PROPOSTA</h4>
                 <p class="body" style="font-size: 13px;">Desenvolvimento da solução e consolidação da experiência digital.</p>
             </div>
         </div>
-    </section>
 
-    <!-- GALERIA -->
-    <section>
-        <div class="micro reveal" style="margin-bottom: 60px; color: var(--color-grey);">/// 03.00 — GALERIA DA SOLUÇÃO</div>
-        
-        <!-- Grid 2x2 para as 4 imagens da galeria -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px;" class="reveal">
-            
+        <div class="reveal" style="margin-top: 60px;">
             <div class="img-placeholder" style="height: 50vh;">
-                <div class="micro">[ IMAGEM 1 ]<br>HOMEPAGE</div>
+                <div class="instruction-text">
+                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ IMAGEM: PROCESSO ]</div>
+                    <p class="body" style="font-size: 12px; line-height: 1.6;">
+                        Crop mostrando algumas telas.<br>
+                        (Visão estrutural e navegação).
+                    </p>
+                </div>
             </div>
-            
-            <div class="img-placeholder" style="height: 50vh;">
-                <div class="micro">[ IMAGEM 2 ]<br>CATÁLOGO</div>
-            </div>
-            
-            <div class="img-placeholder" style="height: 50vh;">
-                <div class="micro">[ IMAGEM 3 ]<br>PÁGINA TÉCNICA</div>
-            </div>
-            
-            <div class="img-placeholder" style="height: 50vh;">
-                <div class="micro">[ IMAGEM 4 ]<br>ÁREA DE NOTÍCIAS</div>
-            </div>
-
         </div>
     </section>
 
-    <!-- RESULTADO E APRENDIZADOS -->
-    <section style="padding-top: 40px;">
+    <!-- SECTION 5: GALERIA -->
+    <section>
+        <div class="micro reveal" style="margin-bottom: 60px; color: var(--color-grey);">/// 05.00 — GALERIA DA SOLUÇÃO</div>
+        
+        <div class="grid-2 reveal">
+            <div class="img-placeholder" style="height: 60vh;">
+                <div class="instruction-text">
+                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ SCREENSHOT 01 ]</div>
+                    <p class="body" style="font-size: 12px; text-align: center; margin: 0 auto;">HOMEPAGE</p>
+                </div>
+            </div>
+            
+            <div class="img-placeholder" style="height: 60vh;">
+                <div class="instruction-text">
+                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ SCREENSHOT 02 ]</div>
+                    <p class="body" style="font-size: 12px; text-align: center; margin: 0 auto;">CATÁLOGO</p>
+                </div>
+            </div>
+            
+            <div class="img-placeholder" style="height: 60vh;">
+                <div class="instruction-text">
+                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ SCREENSHOT 03 ]</div>
+                    <p class="body" style="font-size: 12px; text-align: center; margin: 0 auto;">PÁGINA TÉCNICA</p>
+                </div>
+            </div>
+            
+            <div class="img-placeholder" style="height: 60vh;">
+                <div class="instruction-text">
+                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ SCREENSHOT 04 ]</div>
+                    <p class="body" style="font-size: 12px; text-align: center; margin: 0 auto;">ÁREA DE NOTÍCIAS</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: RESULTADO E APRENDIZADOS -->
+    <section style="border-top: 1px solid rgba(255,255,255,0.05);">
         <div class="grid-layout reveal">
             <!-- Resultado -->
             <div style="grid-column: 1 / 6;">
-                <div class="micro" style="margin-bottom: 20px; color: var(--color-grey);">/// RESULTADO</div>
+                <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// 06.00 — RESULTADO</div>
                 <p class="body">
                     O projeto resultou em uma proposta mais consistente para organização do conteúdo, descoberta de produtos e navegação entre diferentes áreas do ecossistema digital.
                 </p>
@@ -349,9 +382,9 @@
                 </p>
             </div>
             
-            <!-- Aprendizados em Citação Editorial -->
-            <div style="grid-column: 7 / 13; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 40px;">
-                <div class="micro" style="margin-bottom: 30px; color: var(--color-olive);">/// APRENDIZADOS</div>
+            <!-- Aprendizados (Canonical Quote) -->
+            <div style="grid-column: 7 / 13;">
+                <div class="micro" style="margin-bottom: 30px; color: var(--color-grey);">/// 06.01 — APRENDIZADOS</div>
                 <p class="quote">
                     "Projetos de grande porte raramente são apenas sobre interface. Grande parte do trabalho acontece na estrutura invisível: organização da informação, definição de prioridades e construção de caminhos que permitam ao usuário encontrar o que procura com menos esforço."
                 </p>
@@ -359,24 +392,24 @@
         </div>
     </section>
 
-    <!-- NEXT PROJECT FOOTER -->
-    <section style="padding: 120px 5vw; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px;">
+    <!-- SECTION 7: BACK TO PORTFOLIO (Standard Footer) -->
+    <section style="border-top: 1px solid rgba(255,255,255,0.1);">
         <div class="grid-layout">
             <div style="grid-column: 1 / 13; display: flex; justify-content: space-between; align-items: center;" class="reveal">
                 <div>
                     <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">PROJETO ANTERIOR</div>
-                    <a href="importax.html" class="title" style="font-size: 2rem; color: var(--color-grey); text-transform: uppercase;">Importax ←</a>
+                    <a href="importax.html" class="title" style="font-size: 2rem; color: var(--color-grey);">IMPORTAX ←</a>
                 </div>
                 
                 <div style="text-align: right;">
                     <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">RETORNAR</div>
-                    <a href="index.html" class="title" style="font-size: 2rem; text-transform: uppercase;">HOME →</a>
+                    <a href="lab.html" class="title" style="font-size: 2rem;">LAB →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- JS PARA ANIMAÇÃO DE REVEAL AO SCROLL -->
+    <!-- JS -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const observer = new IntersectionObserver((entries, obs) => {
