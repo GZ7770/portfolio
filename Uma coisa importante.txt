@@ -1,0 +1,25 @@
+﻿Uma coisa importante
+A partir de agora, para atualizar o site:
+Você altera o HTML localmente.
+Depois:
+git add .
+git commit -m "Atualização"
+git push
+E pronto.
+A Vercel publica automaticamente em 20-60 segundos.
+Não precisa subir arquivo manualmente nunca mais.
+
+
+
+
+Editar
+↓
+git status
+↓
+git add .
+↓
+git commit -m "descrição"
+↓
+git push
+↓
+Deploy automático

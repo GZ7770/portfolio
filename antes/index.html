@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guilherme Zenni | Portfólio</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================================
+           ROOT & VARIABLES 
+           ======================================================== */
+        :root {
+            --color-dark: #101010;
+            --color-olive: #b5bcad;
+            --color-light: #e6e6e6;
+            --color-white: #f0f0f0;
+            --color-grey: #858585;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-tech: 'Inter Tight', sans-serif;
+            --body-text-color: var(--color-grey);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--color-dark);
+            color: var(--color-white);
+            font-family: var(--font-tech);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
+            mix-blend-mode: overlay;
+        }
+
+        .title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 2.8vw, 3.5rem); 
+            line-height: 1;
+            letter-spacing: 0.05em; 
+            text-transform: uppercase;
+            transform: scaleY(1.1); 
+            transform-origin: top left;
+        }
+
+        .body {
+            font-family: var(--font-tech);
+            font-size: 13px; 
+            line-height: 1.8; 
+            font-weight: 300;
+            color: var(--body-text-color);
+            max-width: 500px;
+        }
+
+        .micro {
+            font-family: var(--font-tech);
+            font-size: 9px; 
+            letter-spacing: 0.25em; 
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 40px 5vw;
+            display: flex;
+            justify-content: space-between;
+            z-index: 999;
+            mix-blend-mode: difference;
+        }
+
+        section {
+            position: relative;
+            width: 100%;
+            padding: 180px 5vw; 
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid currentColor;
+            padding: 12px 32px;
+            border-radius: 50px;
+            transition: 0.4s ease;
+        }
+        .cta-btn:hover { background: var(--color-white); color: var(--color-dark); }
+
+        .hero {
+            min-height: 100vh;
+            padding: 0 5vw; 
+            display: flex;
+            align-items: center;
+            background-color: var(--color-dark);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .hero-photo {
+            position: absolute;
+            inset: -5%;
+            background-image: url('SUA_IMAGEM_AQUI'); /* Use uma URL real ou mantenha o base64 se preferir */
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(1) contrast(1.1);
+            animation: hero-kenburns 20s infinite alternate;
+        }
+
+        .hero-duotone {
+            position: absolute;
+            inset: 0;
+            background: var(--color-olive);
+            mix-blend-mode: color;
+            opacity: 0.8;
+        }
+
+        .hero-vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.7) 100%);
+        }
+
+        @keyframes hero-kenburns {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        /* Animações de Reveal */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .olive-section { background-color: var(--color-olive); color: var(--color-dark); --body-text-color: rgba(0,0,0,0.7); }
+        .dark-section { background-color: var(--color-dark); color: var(--color-white); }
+        .bg-text { position: absolute; top: 50%; left: 5vw; font-size: 20vw; opacity: 0.05; font-family: var(--font-display); pointer-events: none; }
+
+        .list-table { border-top: 1px solid currentColor; margin-top: 20px; }
+        .list-row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid rgba(0,0,0,0.1); }
+
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: rgba(255,255,255,0.1); margin-top: 40px; }
+        .skill-item { background: var(--color-dark); padding: 20px; }
+
+        .project-item { padding: 30px 0; border-bottom: 1px solid rgba(255,255,255,0.1); transition: 0.4s; }
+        .project-item:hover { padding-left: 20px; color: var(--color-olive); }
+
+        .light-section { background: var(--color-light); color: var(--color-dark); text-align: center; }
+
+        @media (max-width: 900px) {
+            section { padding: 100px 5vw; }
+            .grid-layout { display: block; }
+        }
+        /* Ajuste para tornar a linha toda clicável */
+.project-item {
+    padding: 0 !important; /* Remove o padding do LI para o link ocupar tudo */
+    list-style: none;
+}
+
+.project-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 0; /* O padding vai para dentro do link agora */
+    width: 100%;
+    text-decoration: none;
+    transition: all 0.4s ease;
+}
+
+.project-link:hover {
+    padding-left: 30px;
+    color: var(--color-olive);
+}
+
+.project-link .title {
+    pointer-events: none; /* Garante que o clique passe para o link pai */
+}
+    </style>
+</head>
+<body>
+
+<div class="noise-overlay"></div>
+
+<header>
+    <div class="micro">[ 2026 ] /// GUILHERME ZENNI</div>
+    <div class="micro">BR / SC</div>
+</header>
+
+<section class="hero">
+    <div class="hero-bg" id="heroBg">
+        <div class="hero-photo"></div>
+        <div class="hero-duotone"></div>
+        <div class="hero-vignette"></div>
+    </div>
+
+    <div style="position: relative; z-index: 10; width: 100%;">
+        <div class="hero-copy-wrap" id="heroCopyWrap">
+            <h1 class="title" style="font-size: clamp(3rem, 8vw, 7rem); line-height: 0.9;">
+                SISTEMAS<br>SÃO<br>CULTURA.
+            </h1>
+            <div class="hero-support" style="margin-top: 20px;">
+                <p class="body" style="color: white; font-weight: 500;">
+                    Transformando complexidade operacional em experiências humanas.
+                </p>
+            </div>
+            <div style="margin-top: 40px;">
+                <a href="#projetos" class="cta-btn micro">[ VER PROJETOS ]</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 01. POSICIONAMENTO -->
+<section class="olive-section">
+    <h2 class="bg-text">ZEISTGEIST</h2>
+    <div class="grid-layout">
+        <div style="grid-column: 1 / 6;" class="reveal">
+            <div class="micro">/// 01 — POSICIONAMENTO</div>
+            <p class="body" style="margin: 30px 0; font-weight: 500; font-size: 1.1rem; color: #000;">
+                Meu trabalho acontece na interseção entre Produto, Operação, Comportamento e Negócio.
+            </p>
+            <div class="list-table">
+                <div class="list-row"><span>01</span> Produto</div>
+                <div class="list-row"><span>02</span> Operação</div>
+                <div class="list-row"><span>03</span> Comportamento</div>
+                <div class="list-row"><span>04</span> Negócio</div>
+            </div>
+        </div>
+        <div style="grid-column: 7 / 13;" class="reveal">
+            <h3 class="title">REGRAS, PESSOAS E SISTEMAS.</h3>
+            <p class="body">Atuo em contextos onde a tecnologia precisa organizar o caos humano sem perder a empatia.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 02. VISÃO -->
+<section class="dark-section">
+    <div class="grid-layout">
+        <div style="grid-column: 1 / 10;" class="reveal">
+            <div class="micro">/// 02 — VISÃO</div>
+            <h2 class="title" style="margin: 40px 0;">PRODUTOS DIGITAIS NÃO EXISTEM ISOLADOS.</h2>
+            <p class="body">Contexto e cultura ditam como os sistemas são usados. Interfaces são apenas a ponta do iceberg.</p>
+        </div>
+    </div>
+
+    <div class="reveal" style="margin-top: 100px;">
+        <div class="micro">/// 03 — EXPERTISE</div>
+        <div class="skills-grid">
+            <div class="skill-item">Product Design</div>
+            <div class="skill-item">Design Systems</div>
+            <div class="skill-item">Arquitetura de Informação</div>
+            <div class="skill-item">IA & Processos</div>
+        </div>
+    </div>
+</section>
+
+<!-- 04. PROJETOS -->
+<section id="projetos" class="dark-section" style="padding-top: 50px;">
+    <div class="micro" style="color: var(--color-grey); margin-bottom: 30px;">
+        /// 04 — SELEÇÃO DE PROJETOS
+    </div>
+
+    <ul class="project-list">
+        
+        <li class="project-item reveal">
+            <a href="international.html" class="project-link">
+                <span class="title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none;">WTM International</span>
+                <span class="micro">[ VIEW ]</span>
+            </a>
+        </li>
+
+        <li class="project-item reveal">
+            <a href="importax.html" class="project-link">
+                <span class="title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none;">Importax</span>
+                <span class="micro">[ VIEW ]</span>
+            </a>
+        </li>
+
+        <li class="project-item reveal">
+            <a href="ngk.html" class="project-link">
+                <span class="title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none;">NGK</span>
+                <span class="micro">[ VIEW ]</span>
+            </a>
+        </li>
+
+        <li class="project-item reveal">
+            <a href="lab.html" class="project-link">
+                <span class="title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none;">Projetos Experimentais</span>
+                <span class="micro">[ VIEW ]</span>
+            </a>
+        </li>
+
+        <li class="project-item reveal">
+            <a href="ia.html" class="project-link">
+                <span class="title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none;">Ferramentas IA / No-Code</span>
+                <span class="micro">[ VIEW ]</span>
+            </a>
+        </li>
+
+    </ul>
+</section>
+
+<!-- 05. CONTATO -->
+<section class="light-section">
+    <div class="micro">/// 05 — CONTATO</div>
+    <div class="title" style="font-size: 5vw; margin: 40px 0;">GUILHERME ZENNI</div>
+    <p class="body" style="margin: 0 auto 40px auto;">Santa Catarina, Brasil</p>
+    <a href="https://wa.me/5548999921816" class="cta-btn micro">[ ENTRAR EM CONTATO ]</a>
+</section>
+
+<script>
+    /

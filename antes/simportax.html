@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Importax | Case Study</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================================
+           00. CANONICAL DESIGN SYSTEM 
+           ======================================================== */
+        :root {
+            --color-dark: #101010;
+            --color-olive: #b5bcad;
+            --color-light: #e6e6e6;
+            --color-white: #f0f0f0;
+            --color-grey: #858585;
+
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-tech: 'Inter Tight', sans-serif;
+            
+            --body-text-color: var(--color-grey);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* Blueprint Background */
+        body {
+            background-color: var(--color-dark);
+            color: var(--color-white);
+            font-family: var(--font-tech);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Cinematic Noise */
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 9999;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E');
+            mix-blend-mode: overlay;
+        }
+
+        /* ========================================================
+           01. TYPOGRAPHY HIERARCHY
+           ======================================================== */
+        .title {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3vw, 3.5rem); 
+            line-height: 1;
+            letter-spacing: 0.05em; 
+            word-spacing: 0.15em; 
+            text-transform: uppercase;
+            transform: scaleY(1.1); 
+            transform-origin: bottom left;
+        }
+
+        .subtitle {
+            font-family: var(--font-tech);
+            font-size: clamp(1.1rem, 1.6vw, 2rem); 
+            line-height: 1.3;
+            letter-spacing: 0.02em;
+            color: var(--color-olive);
+            max-width: 700px;
+        }
+
+        .body {
+            font-family: var(--font-tech);
+            font-size: 13px; 
+            line-height: 1.8; 
+            font-weight: 300;
+            color: var(--body-text-color);
+            max-width: 500px;
+            letter-spacing: 0.02em;
+        }
+
+        .micro {
+            font-family: var(--font-tech);
+            font-size: 9px; 
+            letter-spacing: 0.25em; 
+            text-transform: uppercase;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .quote {
+            font-family: var(--font-tech);
+            font-size: clamp(1.4rem, 2vw, 1.8rem);
+            line-height: 1.5;
+            font-weight: 300;
+            color: var(--color-white);
+            max-width: 900px;
+            border-left: 2px solid var(--color-olive);
+            padding-left: 30px;
+        }
+
+        .single-line { white-space: nowrap; }
+        a { color: inherit; text-decoration: none; transition: 0.3s; }
+        a:hover { color: var(--color-olive); }
+
+        /* ========================================================
+           02. LAYOUT & SPACING SYSTEM
+           ======================================================== */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 40px 5vw; display: flex; justify-content: space-between;
+            z-index: 999; mix-blend-mode: difference;
+        }
+
+        section { position: relative; width: 100%; padding: 120px 5vw; } 
+        .grid-layout { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
+
+        /* ========================================================
+           03. COMPONENTS
+           ======================================================== */
+        .doc-panel {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 40px;
+            backdrop-filter: blur(5px);
+        }
+        .doc-line {
+            border-bottom: 1px dashed rgba(255,255,255,0.15);
+            padding: 20px 0; display: flex; justify-content: space-between; align-items: center;
+        }
+        .doc-line:last-child { border-bottom: none; padding-bottom: 0; }
+
+        .chip {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 16px; display: inline-block;
+            margin-right: 8px; margin-bottom: 8px;
+            color: var(--color-white); font-size: 10px; letter-spacing: 0.05em;
+            text-transform: uppercase; border-radius: 0px;
+        }
+
+        .checklist { list-style: none; margin-top: 20px; }
+        .checklist li {
+            position: relative; padding-left: 20px; margin-bottom: 15px;
+            color: var(--color-white); font-family: var(--font-tech);
+            font-size: 13px; font-weight: 300; letter-spacing: 0.02em;
+        }
+        .checklist li::before {
+            content: '[+]'; position: absolute; left: 0; top: 0;
+            color: var(--color-olive); font-size: 10px; font-family: var(--font-tech);
+        }
+
+        .img-placeholder {
+            width: 100%; background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden; color: var(--color-grey);
+            text-align: center; padding: 40px;
+        }
+        .img-placeholder img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 2;
+        }
+        .instruction-text {
+            position: relative; z-index: 3; max-width: 450px;
+            background: var(--color-dark); padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* --------------------------------------------------------
+           IMPORTAX SPECIFIC EXTENSION (Process Diagram)
+           -------------------------------------------------------- */
+        .diagram-container {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 80px 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: relative;
+        }
+        .diagram-node {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: var(--color-dark);
+            padding: 30px 40px; text-align: center; width: 300px;
+            position: relative; z-index: 2;
+        }
+        .diagram-node.highlight {
+            border-color: var(--color-olive);
+            background: rgba(181, 188, 173, 0.05);
+        }
+        .diagram-arrow {
+            height: 60px; width: 1px;
+            background: rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+        .diagram-arrow::after {
+            content: ''; position: absolute; bottom: 0; left: -4px;
+            border-left: 5px solid transparent; border-right: 5px solid transparent;
+            border-top: 5px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* ========================================================
+           04. ANIMATIONS
+           ======================================================== */
+        .fade-in-up { opacity: 0; animation: safeFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 0.2s; }
+        @keyframes safeFadeIn { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 900px) {
+            .grid-layout { display: flex; flex-direction: column; gap: 40px; }
+            .hide-mobile { display: none; }
+            section { padding: 80px 5vw; } /* Ajuste para espaçamento em mobile */
+            header { padding: 20px 5vw; } /* Ajuste para espaçamento do header em mobile */
+            .doc-panel { padding: 20px; } /* Ajuste do padding do doc-panel em mobile */
+            .doc-line { padding: 10px 0; } /* Ajuste do padding do doc-line em mobile */
+            .title { font-size: 2rem; } /* Ajuste do tamanho da fonte do título em mobile */
+            .subtitle { font-size: 1.2rem; } /* Ajuste do tamanho da fonte do subtítulo em mobile */
+            .quote { font-size: 1.1rem; padding-left: 20px; } /* Ajuste da citação em mobile */
+            .diagram-node { width: 100%; padding: 20px 30px; } /* Ajuste do nó do diagrama em mobile */
+            .instruction-text { padding: 15px; font-size: 10px; } /* Ajuste do texto de instrução em mobile */
+
+            /* Ajustes específicos para o layout da imagem única e textos em mobile */
+            .img-container-full-width {
+                grid-column: span 12;
+                order: -1; /* Mover a imagem para cima em mobile */
+                margin-bottom: 40px; /* Espaço após a imagem em mobile */
+            }
+            .text-container-full-width {
+                grid-column: span 12;
+            }
+        }
+        
+        /* Ajustes específicos para o grid em desktop */
+        @media (min-width: 901px) {
+            .grid-col-1-5 { grid-column: 1 / 5; }
+            .grid-col-6-13 { grid-column: 6 / 13; }
+            .grid-col-1-7 { grid-column: 1 / 7; }
+            .grid-col-8-13 { grid-column: 8 / 13; }
+            /* Classes para o novo layout de 3 textos e 1 imagem */
+            .img-container-full-width { grid-column: 7 / 13; } /* Imagem ocupa a metade direita em desktop */
+            .text-container-full-width { grid-column: 1 / 7; } /* Textos ocupam a metade esquerda em desktop */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+
+    <!-- HEADER (Standard Navigation Pattern) -->
+    <header>
+        <a href="index.html" class="micro">[ ← VOLTAR / PORTFÓLIO ]</a>
+        <div class="micro hide-mobile">DOC. ID: IMPORTAX // STRATEGIC REDESIGN</div>
+    </header>
+
+    <!-- ==========================================
+         STEP 1 & 2: HERO + CONTEXT
+         ========================================== -->
+    <section style="min-height: 90vh; display: flex; align-items: center; padding-top: 120px;">
+        <div class="grid-layout w-100 fade-in-up" style="width: 100%;">
+            
+            <!-- Standard Metadata Block -->
+            <div class="grid-col-1-5">
+                <div class="doc-panel">
+                    <div class="doc-line" style="padding-top: 0;">
+                        <span class="micro" style="color: var(--color-grey);">ESCOPO</span>
+                        <span class="micro">IMPORTAX</span>
+                    </div>
+                    <div class="doc-line">
+                        <span class="micro" style="color: var(--color-grey);">PERÍODO</span>
+                        <div style="text-align: right;">
+                            <span class="micro" style="display: block;">EVOLUÇÃO CONTÍNUA</span>
+                        </div>
+                    </div>
+                    <div class="doc-line">
+                        <span class="micro" style="color: var(--color-grey);">STATUS</span>
+                        <span class="micro" style="color: var(--color-olive);">EM ANDAMENTO [RESTRITO]</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Standard Hero Text Block -->
+            <div class="grid-col-6-13" style="display: flex; flex-direction: column; justify-content: center;">
+                <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// 01.00 — CONTEXTO & DESAFIO</div>
+                
+                <h1 class="title">PLATAFORMA IMPORTAX</h1>
+                <h2 class="subtitle" style="margin-top: 20px;">
+                    Mapeamento operacional e arquitetura de informação para fluxos complexos.
+                </h2>
+                
+                <p class="body" style="margin-top: 40px;">
+                    O desafio central não se resumia a uma renovação de interface. Tratava-se de compreender e reestruturar um processo operacional crítico, lidando com fluxos fragmentados, múltiplas regras de negócio e dependências de informação.
+                </p>
+                <p class="body" style="margin-top: 15px;">
+                    A complexidade existia não apenas na tela, mas na distribuição pulverizada de decisões ao longo de toda a experiência. O foco primordial foi investigar estruturalmente o problema, sintetizar o escopo e redefinir o modelo mental da plataforma antes de propor qualquer solução visual.
+                </p>
+
+                <!-- Restrição NDA Formatada -->
+                <div style="margin-top: 40px; padding-left: 20px; border-left: 1px solid rgba(255,255,255,0.2);">
+                    <p class="body" style="font-size: 11px; text-transform: none; letter-spacing: 0.05em; color: var(--color-grey); margin: 0;">
+                        Por questões legais de privacidade contratual, apenas fragmentos dos processos de discovery e protótipos são apresentados nesse case.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         STEP 3 & 4: MY ROLE + VALUE GENERATED
+         ========================================== -->
+    <section style="border-top: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2);">
+        <div class="grid-layout">
+            
+            <!-- Standard My Role (Chips) -->
+            <div class="grid-col-1-7 reveal">
+                <div class="micro" style="margin-bottom: 40px; color: var(--color-olive);">/// 02.00 — MINHA ATUAÇÃO</div>
+                
+                <div style="margin-bottom: 30px; max-width: 500px;">
+                    <span class="chip">UX Research</span>
+                    <span class="chip">Product Discovery</span>
+                    <span class="chip">Information Architecture</span>
+                    <span class="chip">Flow Mapping</span>
+                    <span class="chip">Navigation Restructuring</span>
+                    <span class="chip">Wireframing</span>
+                    <span class="chip">Cross-functional Collab</span>
+                    <span class="chip">Operational Analysis</span>
+                </div>
+
+                <p class="body">
+                    A atuação exigiu compreender as regras invisíveis que ditam a operação, mapear dependências cruzadas e conectar necessidades sistêmicas com os objetivos do negócio.
+                </p>
+            </div>
+
+            <!-- Standard Value Generated (Checklist) -->
+            <div class="grid-col-8-13 reveal">
+                <div class="micro" style="margin-bottom: 40px; color: var(--color-grey);">/// 02.01 — GERAÇÃO DE VALOR</div>
+                
+                <p class="body" style="margin-bottom: 20px;">
+                    O impacto do design foi medido pela capacidade de criar clareza e alinhar perspectivas:
+                </p>
+
+                <ul class="checklist">
+                    <li>Estruturação da complexidade e redução de ambiguidades sistêmicas</li>
+                    <li>Apoio direto à tomada de decisão operacional</li>
+                    <li>Alinhamento tangível entre visão de negócio, operação e usuário</li>
+                    <li>Definição de novos modelos de navegação e arquitetura da informação</li>
+                    <li>Criação de entendimento compartilhado entre os times</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================
+         STEP 5A: COGNITIVE LOAD DIAGRAM
+         ========================================== -->
+    <section style="border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="grid-layout">
+            <div style="grid-column: 1 / 13;" class="reveal">
+                
+                <div class="diagram-container">
+                    <div style="position: absolute; top: -10px; left: 0; background: var(--color-dark); padding: 0 10px;" class="micro" style="color: var(--color-olive);">
+                        /// 03.00 — REDUÇÃO DE CARGA COGNITIVA
+                    </div>
+
+                    <div class="diagram-node">
+                        <div class="micro" style="color: var(--color-grey); margin-bottom: 5px;">FLUXO ATUAL</div>
+                        <div class="title" style="font-size: 2.5rem; letter-spacing: 0; transform: none;">47</div>
+                        <div class="micro">INTERAÇÕES</div>
+                    </div>
+
+                    <div class="diagram-arrow"></div>
+
+                    <div class="diagram-node highlight">
+                        <div class="micro" style="color: var(--color-olive); margin-bottom: 5px;">FLUXO PROPOSTO</div>
+                        <div class="title" style="font-size: 2.5rem; letter-spacing: 0; transform: none; color: var(--color-olive);">18</div>
+                        <div class="micro">INTERAÇÕES</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         STEP 5B: KEY INITIATIVES (Three Texts, One Image)
+         ========================================== -->
+    <section>
+        <div class="grid-layout">
+            <div style="grid-column: 1 / 13;" class="reveal">
+                <div class="micro" style="margin-bottom: 60px; color: var(--color-olive);">/// 04.00 — ESTRATÉGIA E PROCESSO</div>
+            </div>
+
+            <!-- Container para os três blocos de texto -->
+            <div class="text-container-full-width reveal">
+                <!-- Iniciativa 1: Investigação -->
+                <div style="margin-bottom: 60px;">
+                    <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">INVESTIGAÇÃO</h3>
+                    <p class="body">
+                        A base do projeto foi o aprofundamento operacional, garantindo compreensão antes da solução. Identificamos lacunas processuais que afetavam a experiência como um todo.
+                    </p>
+                </div>
+
+                <!-- Iniciativa 2: Arquitetura -->
+                <div style="margin-bottom: 60px;">
+                    <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">ARQUITETURA</h3>
+                    <p class="body">
+                        Desenvolvimento de novos modelos mentais. O foco foi reestruturar a hierarquia da informação para suportar fluxos mais intuitivos e escaláveis.
+                    </p>
+                </div>
+
+                <!-- Iniciativa 3: Prototipação -->
+                <div style="margin-bottom: 0px;">
+                    <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">PROTOTIPAÇÃO</h3>
+                    <p class="body">
+                        Validação de cenários futuros utilizando wireframes táticos. A prioridade foi testar a solidez estrutural e a viabilidade operacional das propostas. Estamos nos primeiros testes já coletando resultados de UX com beta testers.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Única Imagem para representar todas as iniciativas -->
+            <div class="img-container-full-width reveal">
+                <div class="img-placeholder" style="height: 100%; min-height: 400px;">
+                    <img src="assets/imp1.png" alt="Visão geral do processo Importax (Investigação, Arquitetura e Prototipação)"> 
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================
+         STEP 6: LEARNINGS
+         ========================================== -->
+    <section style="border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="grid-layout reveal">
+            <div style="grid-column: 1 / 13;">
+                <div class="micro" style="margin-bottom: 40px; color: var(--color-olive);">/// 05.00 — APRENDIZADOS</div>
+                <p class="quote">
+                    "Produzir mais telas não significa, necessariamente, gerar melhores decisões. Em ambientes complexos, o maior impacto do design está em criar entendimento compartilhado e transformar informações fragmentadas em modelos coerentes."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         STEP 7: BACK TO PORTFOLIO (Standard Footer)
+         ========================================== -->
+    <section style="padding: 120px 5vw; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 60px;">
+        <div class="grid-layout">
+            <div style="grid-column: 1 / 13; display: flex; justify-content: space-between; align-items: center;" class="reveal">
+                <div>
+                    <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">PROJETO ANTERIOR</div>
+                    <a href="wtm.html" class="title" style="font-size: 2rem; color: var(--color-grey);">WTM PLATFORM ←</a>
+                </div>
+                
+                <div style="text-align: right;">
+                    <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">PRÓXIMO PROJETO</div>
+                    <a href="ngk.html" class="title" style="font-size: 2rem;">NGK LATAM →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { root: null, rootMargin: '0px', threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laboratório | Guilherme Zenni</title>
-    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -153,16 +152,24 @@
             color: var(--color-olive); font-size: 10px; font-family: var(--font-tech);
         }
 
-        .img-placeholder {
-            width: 100%; background: rgba(255, 255, 255, 0.02);
+        /* Video responsiveness */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: hidden; color: var(--color-grey);
-            text-align: center; padding: 40px;
         }
-        .img-placeholder img {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: 2;
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* --------------------------------------------------------
@@ -207,7 +214,6 @@
     </style>
 </head>
 <body>
-
     <div class="noise-overlay"></div>
 
     <!-- HEADER (Standard Navigation Pattern) -->
@@ -220,10 +226,10 @@
          STEP 1 & 2: HERO + CONTEXT
          ========================================== -->
     <section style="min-height: 90vh; display: flex; align-items: center; padding-top: 120px;">
-        <div class="grid-layout w-100 fade-in-up" style="width: 100%;">
+        <div class="grid-layout w-100" style="width: 100%;">
             
             <!-- Standard Metadata Block applied to Lab context -->
-            <div style="grid-column: 1 / 5;">
+            <div style="grid-column: 1 / 5;" class="fade-in-up">
                 <div class="doc-panel">
                     <div class="doc-line" style="padding-top: 0;">
                         <span class="micro" style="color: var(--color-grey);">ESCOPO</span>
@@ -243,12 +249,13 @@
             </div>
 
             <!-- Standard Hero Text Block -->
-            <div style="grid-column: 6 / 13; display: flex; flex-direction: column; justify-content: center;">
+            <div style="grid-column: 6 / 13; display: flex; flex-direction: column; justify-content: center;" class="fade-in-up">
                 <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// 01.00 — INTRODUÇÃO</div>
                 
                 <h1 class="title">LAB</h1>
                 <h2 class="subtitle" style="margin-top: 20px;">
                     Explorações envolvendo comportamento, sistemas digitais, inteligência artificial e novas formas de construir experiências.                
+                </h2>
                 <p class="body" style="margin-top: 40px;">
                     Mantenho uma prática contínua de experimentação paralela aos projetos profissionais. 
                 </p>
@@ -256,7 +263,9 @@
                     Esses estudos funcionam como um espaço para investigar novas tecnologias, testar hipóteses e compreender como sistemas digitais podem se tornar mais claros, úteis e significativos para as pessoas.
                 </p>
                 <p class="body" style="margin-top: 15px;">
-                    Meu interesse está menos nas ferramentas e mais nos comportamentos, relações e decisões que elas tornam possíveis.            </div>
+                    Meu interesse está menos nas ferramentas e mais nos comportamentos, relações e decisões que elas tornam possíveis.            
+                </p>
+            </div>
         </div>
     </section>
 
@@ -284,14 +293,8 @@
                         </p>
                     </div>
                     <div style="grid-column: 5 / 13;">
-                        <div class="img-placeholder" style="height: 60vh;">
-                            <div class="micro">
-                                [ INSERIR IMAGEM REAL AQUI ]<br><br>
-                                PRIORIZAR:<br>
-                                - CARTAS DOS COLABORADORES<br>
-                                - INTERFACE PRINCIPAL<br>
-                                - VISUALIZAÇÃO EM GRAFO<br>
-                            </div>
+                        <div class="video-container" style="height: 60vh;">
+                            <video src="assets/lab01.mp4" autoplay loop muted playsinline></video>
                         </div>
                     </div>
                 </div>
@@ -301,10 +304,10 @@
             <div style="grid-column: 5 / 13;" class="reveal">
                 <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// SOLUÇÃO</div>
                 <p class="body">
-                    Foi desenvolvido um sistema baseado em cartas colecionáveis digitais inspiradas em jogos e álbuns de coleção. Cada colaborador possuía uma representação visual própria, acompanhada de habilidades, responsabilidades e conexões com outras áreas da organização.
+                    Foi desenvolvido um MVP de um sistema baseado em cartas colecionáveis digitais inspiradas em jogos e álbuns de coleção. Cada colaborador possuía uma representação visual própria, acompanhada de habilidades, responsabilidades e conexões com outras áreas da organização.
                 </p>
                 <p class="body" style="margin-top: 15px;">
-                    Além das cartas, o sistema incluía uma visualização conectiva dinâmica, inspirada em grafos de conhecimento, permitindo explorar relações entre pessoas, competências e estruturas organizacionais.
+                    Além das cartas, o sistema incluía uma visualização conectiva dinâmica, inspirada em grafos de conhecimento, permitindo explorar relações entre pessoas, competências e estruturas organizacionais. Está em fase de estudo para implementação.
                 </p>
 
                 <div style="margin-top: 40px;">
@@ -416,6 +419,10 @@
     <section style="padding: 120px 5vw; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 60px;">
         <div class="grid-layout">
             <div style="grid-column: 1 / 13; display: flex; justify-content: space-between; align-items: center;" class="reveal">
+                <div>
+                    <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">PROJETO</div>
+                    <a href="https://ngklatam.vercel.app/" class="title" style="font-size: 2rem; color: var(--color-grey);" target="_blank">NGK LATAM</a>
+                </div>
                 <div>
                     <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">RETORNAR</div>
                     <a href="index.html" class="title" style="font-size: 2rem; color: var(--color-grey);">HOME</a>

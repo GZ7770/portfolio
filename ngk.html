@@ -176,6 +176,37 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
+        /* --------------------------------------------------------
+           IMPORTAX SPECIFIC EXTENSION (Process Diagram)
+           -------------------------------------------------------- */
+        .diagram-container {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 80px 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: relative;
+        }
+        .diagram-node {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: var(--color-dark);
+            padding: 30px 40px; text-align: center; width: 300px;
+            position: relative; z-index: 2;
+        }
+        .diagram-node.highlight {
+            border-color: var(--color-olive);
+            background: rgba(181, 188, 173, 0.05);
+        }
+        .diagram-arrow {
+            height: 60px; width: 1px;
+            background: rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+        .diagram-arrow::after {
+            content: ''; position: absolute; bottom: 0; left: -4px;
+            border-left: 5px solid transparent; border-right: 5px solid transparent;
+            border-top: 5px solid rgba(255, 255, 255, 0.3);
+        }
+
         /* ========================================================
            04. ANIMATIONS
            ======================================================== */
@@ -188,6 +219,58 @@
             .grid-layout { display: flex; flex-direction: column; gap: 40px; }
             .grid-4, .grid-2 { grid-template-columns: 1fr; gap: 20px; }
             .hide-mobile { display: none; }
+            section { padding: 80px 5vw; } /* Ajuste para espaçamento em mobile */
+            header { padding: 20px 5vw; } /* Ajuste para espaçamento do header em mobile */
+            .doc-panel { padding: 20px; } /* Ajuste do padding do doc-panel em mobile */
+            .doc-line { padding: 10px 0; } /* Ajuste do padding do doc-line em mobile */
+            .title { font-size: 2rem; } /* Ajuste do tamanho da fonte do título em mobile */
+            .subtitle { font-size: 1.2rem; } /* Ajuste do tamanho da fonte do subtítulo em mobile */
+            .quote { font-size: 1.1rem; padding-left: 20px; } /* Ajuste da citação em mobile */
+            .diagram-node { width: 100%; padding: 20px 30px; } /* Ajuste do nó do diagrama em mobile */
+            .instruction-text { padding: 15px; font-size: 10px; } /* Ajuste do texto de instrução em mobile */
+
+            /* Ajustes para o layout da galeria em mobile */
+            .gallery-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+            .gallery-image-wrapper {
+                order: -1; /* Move a imagem para o topo em mobile */
+                margin-bottom: 20px;
+            }
+        }
+        
+        /* Ajustes específicos para o grid em desktop */
+        @media (min-width: 901px) {
+            .grid-col-1-5 { grid-column: 1 / 5; }
+            .grid-col-6-13 { grid-column: 6 / 13; }
+            .grid-col-1-8 { grid-column: 1 / 8; } /* Para imagem de diagnóstico */
+            .grid-col-9-13 { grid-column: 9 / 13; } /* Para atuação */
+            .grid-col-1-13 { grid-column: 1 / 13; } /* Para elementos de largura total */
+
+            /* Layout da galeria em desktop: imagem à esquerda, textos à direita */
+            .gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 20px;
+            }
+            .gallery-image-wrapper {
+                grid-column: 1 / 8; /* Imagem ocupa 7 colunas */
+                height: 60vh; /* Altura definida para a imagem principal */
+            }
+            .gallery-text-column {
+                grid-column: 9 / 13; /* Textos ocupam 4 colunas */
+                display: flex;
+                flex-direction: column;
+                justify-content: center; /* Centraliza os textos verticalmente */
+            }
+            .gallery-text-item {
+                margin-bottom: 20px; /* Espaçamento entre os itens de texto */
+            }
+            .gallery-text-item:last-child {
+                margin-bottom: 0;
+            }
         }
     </style>
 </head>
@@ -204,7 +287,7 @@
     <!-- SECTION 1: TITLE & HERO IMAGE -->
     <section style="min-height: 90vh; display: flex; align-items: center;">
         <div class="grid-layout fade-in-up" style="width: 100%;">
-            <div style="grid-column: 1 / 13; margin-bottom: 40px;">
+            <div class="grid-col-1-13" style="margin-bottom: 40px;">
                 <div class="micro" style="margin-bottom: 20px; color: var(--color-grey);">/// 01.00 — CASE STUDY</div>
                 <h1 class="title">NGK LATAM</h1>
                 <h2 class="subtitle" style="margin-top: 20px;">
@@ -212,17 +295,12 @@
                 </h2>
             </div>
             
-            <div style="grid-column: 1 / 13;">
+            <div class="grid-col-1-13">
                 <div class="img-placeholder" style="height: 75vh;">
+                    <img src="assets/ngk01.png" alt="Visão geral do diagnóstico e proposta da NGK LATAM">
                     <div class="instruction-text">
-                        <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ HERO IMAGE ]</div>
                         <p class="body" style="font-size: 12px; line-height: 1.6;">
-                            Use um crop bonito da prancha completa.<br>
-                            Não mostre apenas as telas novas.<br><br>
-                            Mostre:<br>
-                            <span style="color: var(--color-white); font-weight: 500;">ANTES ↓ ANÁLISE ↓ PROPOSTA</span><br><br>
-                            Porque isso vende raciocínio.
-                        </p>
+                                                    </p>
                     </div>
                 </div>
             </div>
@@ -233,7 +311,7 @@
     <section style="background: rgba(0,0,0,0.2); border-top: 1px solid rgba(255,255,255,0.05);">
         <div class="grid-layout reveal">
             <!-- Contexto -->
-            <div style="grid-column: 1 / 6;">
+            <div class="grid-col-1-5">
                 <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// 02.00 — CONTEXTO</div>
                 <p class="body">
                     A NGK possui um amplo portfólio de produtos, conteúdos técnicos e iniciativas voltadas para diferentes públicos do setor automotivo.
@@ -244,7 +322,7 @@
             </div>
 
             <!-- Desafio -->
-            <div style="grid-column: 7 / 13;">
+            <div class="grid-col-6-13">
                 <div class="micro" style="margin-bottom: 20px; color: var(--color-grey);">/// 02.01 — O DESAFIO</div>
                 <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">O DESAFIO</h3>
                 <p class="body">
@@ -261,21 +339,19 @@
     <section>
         <div class="grid-layout reveal">
             <!-- Imagem do diagnóstico -->
-            <div style="grid-column: 1 / 8;">
+            <div class="grid-col-1-8">
                 <div class="img-placeholder" style="height: 60vh;">
+                    <img src="assets/ngk02.png" alt="Imagem do diagnóstico da NGK LATAM">
                     <div class="instruction-text">
-                        <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ IMAGEM: DIAGNÓSTICO ]</div>
                         <p class="body" style="font-size: 12px; line-height: 1.6;">
-                            Aqui entra um crop da coluna esquerda.<br>
-                            A parte do diagnóstico.<br>
-                            A parte mais valiosa da prancha.
+                            
                         </p>
                     </div>
                 </div>
             </div>
 
             <!-- Atuação -->
-            <div style="grid-column: 9 / 13; display: flex; flex-direction: column; justify-content: center;">
+            <div class="grid-col-9-13" style="display: flex; flex-direction: column; justify-content: center;">
                 <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// 03.00 — MINHA ATUAÇÃO</div>
                 <h3 class="title" style="font-size: 2.5rem; margin-bottom: 30px;">MINHA ATUAÇÃO</h3>
                 <div>
@@ -310,7 +386,7 @@
             <div>
                 <div class="title" style="font-size: 2.5rem; color: var(--color-grey); margin-bottom: 20px;">03</div>
                 <h4 class="micro" style="color: var(--color-white); margin-bottom: 15px;">SISTEMA</h4>
-                <p class="body" style="font-size: 13px;">Definição de diretrizes visuais e padrões de interface.</p>
+                <p class="body" style="font-size: 13px;">Definição de diretrizes visuais e padrões de interface com base no skeumorfismo.</p>
             </div>
 
             <div>
@@ -321,48 +397,47 @@
         </div>
 
         <div class="reveal" style="margin-top: 60px;">
-            <div class="img-placeholder" style="height: 50vh;">
-                <div class="instruction-text">
-                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ IMAGEM: PROCESSO ]</div>
-                    <p class="body" style="font-size: 12px; line-height: 1.6;">
-                        Crop mostrando algumas telas.<br>
-                        (Visão estrutural e navegação).
-                    </p>
-                </div>
-            </div>
+            
         </div>
     </section>
 
-    <!-- SECTION 5: GALERIA -->
+    <!-- SECTION 5: GALERIA - COM UMA IMAGEM PRINCIPAL E TEXTOS DESCRITIVOS -->
     <section>
         <div class="micro reveal" style="margin-bottom: 60px; color: var(--color-grey);">/// 05.00 — GALERIA DA SOLUÇÃO</div>
         
-        <div class="grid-2 reveal">
-            <div class="img-placeholder" style="height: 60vh;">
-                <div class="instruction-text">
-                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ SCREENSHOT 01 ]</div>
-                    <p class="body" style="font-size: 12px; text-align: center; margin: 0 auto;">HOMEPAGE</p>
+        <div class="gallery-grid reveal">
+            <!-- Única Imagem Principal para a Galeria -->
+            <div class="gallery-image-wrapper">
+                <div class="img-placeholder" style="height: 100%;">
+                    <img src="assets/ngk10.png" alt="Visão geral da solução NGK LATAM (Homepage, Catálogo, Página Técnica, Notícias)">
+                    <div class="instruction-text">
+                        <p class="body" style="font-size: 12px; text-align: center; margin: 0 auto;">
+                            
+                        </p>
+                    </div>
                 </div>
             </div>
             
-            <div class="img-placeholder" style="height: 60vh;">
-                <div class="instruction-text">
-                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ SCREENSHOT 02 ]</div>
-                    <p class="body" style="font-size: 12px; text-align: center; margin: 0 auto;">CATÁLOGO</p>
+            <!-- Coluna de Textos Des descritivos -->
+            <div class="gallery-text-column">
+                <div class="gallery-text-item">
+                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ HOMEPAGE ]</div>
+                    <p class="body" style="font-size: 12px;">Ponto de entrada estratégico, focado em descoberta e engajamento inicial.</p>
                 </div>
-            </div>
-            
-            <div class="img-placeholder" style="height: 60vh;">
-                <div class="instruction-text">
-                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ SCREENSHOT 03 ]</div>
-                    <p class="body" style="font-size: 12px; text-align: center; margin: 0 auto;">PÁGINA TÉCNICA</p>
+                
+                <div class="gallery-text-item">
+                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ CATÁLOGO ]</div>
+                    <p class="body" style="font-size: 12px;">Área detalhada de produtos, com filtros e informações técnicas para pesquisa aprofundada.</p>
                 </div>
-            </div>
-            
-            <div class="img-placeholder" style="height: 60vh;">
-                <div class="instruction-text">
-                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ SCREENSHOT 04 ]</div>
-                    <p class="body" style="font-size: 12px; text-align: center; margin: 0 auto;">ÁREA DE NOTÍCIAS</p>
+                
+                <div class="gallery-text-item">
+                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ PÁGINA TÉCNICA ]</div>
+                    <p class="body" style="font-size: 12px;">Conteúdo especializado, oferecendo suporte e conhecimento detalhado para o usuário.</p>
+                </div>
+                
+                <div class="gallery-text-item">
+                    <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ ÁREA DE NOTÍCIAS ]</div>
+                    <p class="body" style="font-size: 12px;">Atualizações e novidades do setor, mantendo o público informado sobre lançamentos e tendências.</p>
                 </div>
             </div>
         </div>
@@ -372,7 +447,7 @@
     <section style="border-top: 1px solid rgba(255,255,255,0.05);">
         <div class="grid-layout reveal">
             <!-- Resultado -->
-            <div style="grid-column: 1 / 6;">
+            <div class="grid-col-1-5">
                 <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// 06.00 — RESULTADO</div>
                 <p class="body">
                     O projeto resultou em uma proposta mais consistente para organização do conteúdo, descoberta de produtos e navegação entre diferentes áreas do ecossistema digital.
@@ -383,7 +458,7 @@
             </div>
             
             <!-- Aprendizados (Canonical Quote) -->
-            <div style="grid-column: 7 / 13;">
+            <div class="grid-col-6-13">
                 <div class="micro" style="margin-bottom: 30px; color: var(--color-grey);">/// 06.01 — APRENDIZADOS</div>
                 <p class="quote">
                     "Projetos de grande porte raramente são apenas sobre interface. Grande parte do trabalho acontece na estrutura invisível: organização da informação, definição de prioridades e construção de caminhos que permitam ao usuário encontrar o que procura com menos esforço."
@@ -395,14 +470,14 @@
     <!-- SECTION 7: BACK TO PORTFOLIO (Standard Footer) -->
     <section style="border-top: 1px solid rgba(255,255,255,0.1);">
         <div class="grid-layout">
-            <div style="grid-column: 1 / 13; display: flex; justify-content: space-between; align-items: center;" class="reveal">
+            <div class="grid-col-1-13" style="display: flex; justify-content: space-between; align-items: center;" class="reveal">
                 <div>
                     <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">PROJETO ANTERIOR</div>
                     <a href="importax.html" class="title" style="font-size: 2rem; color: var(--color-grey);">IMPORTAX ←</a>
                 </div>
                 
                 <div style="text-align: right;">
-                    <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">RETORNAR</div>
+                    <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">PRÓXIMO PROJETO</div>
                     <a href="lab.html" class="title" style="font-size: 2rem;">LAB →</a>
                 </div>
             </div>

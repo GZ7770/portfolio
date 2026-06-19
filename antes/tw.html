@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guilherme Zenni | Portfólio</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================================
+           ROOT & VARIABLES (Minimalist Palette)
+           ======================================================== */
+        :root {
+            --color-dark: #101010;
+            --color-olive: #b5bcad;
+            --color-light: #e6e6e6;
+            --color-white: #f0f0f0;
+            --color-grey: #858585;
+
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-tech: 'Inter Tight', sans-serif;
+            
+            --body-text-color: var(--color-grey);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--color-dark);
+            color: var(--color-white);
+            font-family: var(--font-tech);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ruído Cinematográfico muito sutil */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
+            mix-blend-mode: overlay;
+        }
+
+        /* ========================================================
+           TYPOGRAPHY SYSTEM (Minimalista e Espaçado)
+           ======================================================== */
+        
+        .title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 2.8vw, 3.5rem); 
+            line-height: 1;
+            letter-spacing: 0.05em; 
+            word-spacing: 0.15em; 
+            text-transform: uppercase;
+            transform: scaleY(1.1); 
+            transform-origin: top left;
+        }
+
+        .single-line {
+            white-space: nowrap;
+        }
+
+        .body {
+            font-family: var(--font-tech);
+            font-size: 13px; 
+            line-height: 1.8; 
+            font-weight: 300;
+            color: var(--body-text-color);
+            max-width: 500px;
+            letter-spacing: 0.02em;
+            word-spacing: 0.05em; 
+        }
+
+        .micro {
+            font-family: var(--font-tech);
+            font-size: 9px; 
+            letter-spacing: 0.25em; 
+            text-transform: uppercase;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        /* ========================================================
+           LAYOUT & COMPONENTS
+           ======================================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 5vw;
+            display: flex;
+            justify-content: space-between;
+            z-index: 999;
+            mix-blend-mode: difference;
+        }
+
+        section {
+            position: relative;
+            width: 100%;
+            padding: 180px 5vw; 
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid currentColor;
+            padding: 12px 32px;
+            border-radius: 50px;
+            width: fit-content;
+            transition: 0.4s ease;
+        }
+        .cta-btn:hover { background: var(--color-white); color: var(--color-dark); }
+
+        /* ========================================================
+           HERO SECTION & CINEMATIC FLOATING ELEMENTS
+           ======================================================== */
+        .hero {
+            min-height: 100vh;
+            padding: 0 5vw; 
+            display: flex;
+            align-items: center;
+            background-color: var(--color-dark);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(0,0,0,0.7);
+            mix-blend-mode: lighten;
+            mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 65%);
+            -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 65%);
+            animation: cinematic-float 20s ease-in-out infinite alternate;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes cinematic-float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-30px) scale(1.05); }
+        }
+
+        .hero-cluster {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border-left: 1px solid rgba(255,255,255,0.15);
+            padding-left: 20px;
+            margin-top: 20px;
+        }
+
+        /* ========================================================
+           SECTIONS
+           ======================================================== */
+        .olive-section {
+            background-color: var(--color-olive);
+            color: var(--color-dark);
+            --body-text-color: rgba(0,0,0,0.7);
+        }
+
+        .bg-text {
+            position: absolute; top: 50%; left: 5vw; transform: translateY(-50%) scaleY(1.2);
+            font-family: var(--font-display); font-size: 25vw; color: rgba(0,0,0,0.02);
+            pointer-events: none; z-index: 0; line-height: 0.8; margin: 0;
+        }
+
+        .list-table { border-top: 1px solid var(--color-dark); margin-top: 40px; }
+        .list-row {
+            display: grid; grid-template-columns: 50px 1fr; padding: 20px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .dark-section { background-color: var(--color-dark); }
+        
+        .skills-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1px; background-color: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05);
+            margin-top: 40px;
+        }
+        .skill-item { background-color: var(--color-dark); padding: 30px 20px; }
+
+        .project-list { list-style: none; margin-top: 60px; }
+        .project-item {
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding: 40px 0;
+            display: flex; align-items: center; justify-content: space-between; transition: 0.4s;
+        }
+        .project-item:first-child { border-top: 1px solid rgba(255,255,255,0.1); }
+        .project-item:hover { padding-left: 30px; color: var(--color-olive); }
+
+        .light-section {
+            background-color: var(--color-light);
+            color: var(--color-dark);
+            --body-text-color: rgba(0,0,0,0.7);
+            text-align: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        /* ========================================================
+           RESPONSIVE & ANIMATIONS
+           ======================================================== */
+        @media (max-width: 900px) {
+            .grid-layout { display: flex; flex-direction: column; gap: 40px; }
+            .hero-cluster { flex-direction: column; border-left: none; padding-left: 0; gap: 20px; }
+            .hide-mobile { display: none; }
+            .single-line { white-space: normal; } 
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .load-reveal {
+            opacity: 0;
+            animation: fadeUpOnLoad 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.2s; 
+        }
+
+        @keyframes fadeUpOnLoad {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================================================
+           HERO V2 — FOTO REAL + COLOR MATCH (NOVO)
+           ======================================================== */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+            background-color: var(--color-dark);
+        }
+
+        .hero-photo {
+            position: absolute;
+            top: -6%; left: -6%; right: -6%; bottom: -6%;
+            /* COLE SEU CÓDIGO DA IMAGEM EM BASE64 NO LOCAL INDICADO ABAIXO */
+            background-image: url('data:image/jpeg;base64,COLOQUE_AQUI_O_SEU_CODIGO_BASE64_SALVO');
+            background-size: cover;
+            background-position: 50% 47%;
+            filter: grayscale(1) contrast(1.12) brightness(0.92);
+            animation: hero-kenburns 18s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+
+        /* Camada de "color match": tinge a foto (já em greyscale) com a
+           paleta oliva, preservando luminância/detalhe — apenas cor. */
+        .hero-duotone {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 45%, var(--color-olive) 0%, #4d5446 42%, #15160f 100%);
+            mix-blend-mode: color;
+        }
+
+        /* Variação de luz sutil e ambiente */
+        .hero-light {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 40%, rgba(229,232,222,0.4) 0%, transparent 60%);
+            mix-blend-mode: soft-light;
+            animation: hero-light-pulse 9s ease-in-out infinite alternate;
+        }
+
+        /* Vinheta cinematográfica para legibilidade do texto */
+        .hero-vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0) 38%, rgba(0,0,0,0.62) 100%);
+        }
+
+        @keyframes hero-kenburns {
+            0%   { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.09) translate(-1.4%, -1%); }
+        }
+
+        @keyframes hero-light-pulse {
+            0%   { opacity: 0.45; transform: scale(0.92); }
+            100% { opacity: 0.85; transform: scale(1.08); }
+        }
+
+        .hero-copy-wrap {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+        }
+
+        .hero-title {
+            font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+            line-height: 0.96;
+            transform-origin: top center;
+        }
+        .hero-title span { display: block; }
+
+        .hero-support {
+            margin-top: 28px;
+        }
+        .hero-support .body {
+            max-width: 420px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) {
+            .hero-title { font-size: clamp(2.1rem, 10.5vw, 3.4rem); }
+            .hero-support .body { max-width: 320px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-photo, .hero-light { animation: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="noise-overlay"></div>
+
+<!-- HEADER -->
+<header>
+    <div class="micro">[ 2026 ] /// GUILHERME ZENNI</div>
+    <div class="micro hide-mobile">BR / LAT: -27.0253 LONG: -48.6539</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+
+    <!-- Fundo: fotografia aérea real (sem geração por IA), com color match via CSS -->
+    <div class="hero-bg" id="heroBg">
+        <div class="hero-photo"></div>
+        <div class="hero-duotone"></div>
+        <div class="hero-light"></div>
+        <div class="hero-vignette"></div>
+    </div>
+
+    <div class="grid-layout" style="width: 100%; position: relative; z-index: 10;">
+
+        <div style="grid-column: 1 / 13;" class="hero-copy-wrap" id="heroCopyWrap">
+
+            <h1 class="title hero-title load-reveal" style="text-align: left;">
+                <span>SISTEMAS</span><span>SÃO</span><span>CULTURA.</span>
+            </h1>
+
+            <div class="hero-support load-reveal" style="animation-delay: 0.55s;">
+                <p class="body" style="color: #ffffff; font-size: 15px; font-weight: 600;">
+                    Sistemas são feitos de pessoas, comportamentos, regras invisíveis e significados compartilhados.
+                </p>
+            </div>
+
+            <div class="load-reveal" style="animation-delay: 0.95s; margin-top: 40px;">
+                <a href="#projetos" class="cta-btn micro">
+                    [ VER PROJETOS ]
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- 01. POSICIONAMENTO -->
+<section class="olive-section">
+    <h2 class="bg-text">ZEISTGEIST</h2>
+    
+    <div class="grid-layout" style="position: relative; z-index: 10;">
+        <div style="grid-column: 1 / 5;" class="reveal">
+            <div class="micro">/// 01 — POSICIONAMENTO</div>
+            <p class="body" style="margin-top: 40px; font-weight: 500;">
+                Meu trabalho costuma acontecer na interseção entre:
+            </p>
+            <div class="list-table">
+                <div class="list-row title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none; margin: 0; letter-spacing: 0.02em;"><span>1</span>Produto</div>
+                <div class="list-row title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none; margin: 0; letter-spacing: 0.02em;"><span>2</span>Operação</div>
+                <div class="list-row title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none; margin: 0; letter-spacing: 0.02em;"><span>3</span>Comportamento</div>
+                <div class="list-row title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none; margin: 0; letter-spacing: 0.02em;"><span>4</span>Linguagem</div>
+                <div class="list-row title" style="font-size: clamp(1.2rem, 2vw, 2rem); transform: none; margin: 0; letter-spacing: 0.02em;"><span>5</span>Negócio</div>
+            </div>
+        </div>
+
+        <div style="grid-column: 7 / 13; padding-top: 60px;" class="reveal">
+            <h3 class="title single-line" style="margin-bottom: 30px;">
+                REGRAS, PESSOAS E SISTEMAS.
+            </h3>
+           
+            <p class="body" style="font-weight: 500;">
+                Costumo atuar em contextos onde diferentes sistemas, regras de negócio e necessidades humanas precisam funcionar em conjunto, transformando complexidade operacional em experiências mais compreensíveis.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- 02. VISÃO & 03. ATUAÇÃO -->
+<section class="dark-section">
+    <div class="floating-element" style="top: -10%; left: 65%; width: 40vw; height: 50vh; opacity: 0.2; transform: rotate(180deg);"></div>
+    
+    <div class="grid-layout" style="position: relative; z-index: 10;">
+        <div style="grid-column: 1 / 10;" class="reveal">
+            <div class="micro" style="color: var(--color-grey);">/// 02 — VISÃO</div>
+            
+            <h2 class="title single-line" style="margin: 40px 0;">PRODUTOS DIGITAIS NÃO EXISTEM ISOLADOS.</h2>
+            
+            <p class="body">
+                Contexto, comportamento, linguagem e cultura influenciam diretamente a forma como sistemas são percebidos, utilizados e incorporados ao cotidiano.
+            </p>
+            <p class="body" style="margin-top: 15px;">
+                Por isso, meu interesse está menos nas interfaces em si e mais nas relações que elas tornam possíveis.
+            </p>
+        </div>
+    </div>
+
+    <div style="margin-top: 180px; position: relative; z-index: 10;" class="reveal">
+        <div class="micro" style="color: var(--color-grey); margin-bottom: 30px;">/// 03 — ATUAÇÃO E EXPERTISE</div>
+        <div class="skills-grid">
+            <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Product Design</div>
+            <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Research & Discovery</div>
+            <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Arquitetura da Informação</div>
+            <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Design Systems</div>
+            <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Fluxos Complexos</div>
+            <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">IA Aplicada ao Processo</div>
+            <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Sistemas SaaS</div>
+            <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Estratégia de Produto</div>
+            <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Colaboração Multidisciplinar</div>
+            <div class="skill-item title" style="font-size: 1.2rem; transform: none; margin: 0; letter-spacing: 0.05em;">Direção de Interface</div>
+        </div>
+    </div>
+</section>
+
+<!-- 04. PROJETOS -->
+<section id="projetos" class="dark-section" style="padding-top: 50px;">
+    <div class="micro" style="color: var(--color-grey);">/// 04 — SELEÇÃO DE PROJETOS</div>
+    
+    <ul class="project-list reveal">
+        <li class="project-item">
+            <a href="wtm.html" class="title" style="margin: 0; transform-origin: left center;">WTM Platform</a>
+            <a href="wtm.html" class="micro">[ VIEW ]</a>
+        </li>
+        <li class="project-item">
+            <a href="importax.html" class="title" style="margin: 0; transform-origin: left center;">Importax</a>
+            <a href="importax.html" class="micro">[ VIEW ]</a>
+        </li>
+        <li class="project-item">
+            <a href="ngk.html" class="title" style="margin: 0; transform-origin: left center;">NGK LATAM</a>
+            <a href="ngk.html" class="micro">[ VIEW ]</a>
+        </li>
+        <li class="project-item">
+            <a href="lab.html" class="title" style="margin: 0; transform-origin: left center;">LAB</a>
+            <a href="lab.html" class="micro">[ VIEW ]</a>
+        </li>
+    </ul>
+</section>
+
+<!-- 05. CONTATO -->
+<section class="light-section">
+    <div class="micro reveal">/// 05 — CONTATO</div>
+    
+    <div class="title single-line reveal" style="margin: 60px 0;">
+        GUILHERME ZENNI
+    </div>
+
+    <div style="display: flex; gap: 40px; margin-bottom: 60px; flex-wrap: wrap; justify-content: center;" class="reveal">
+        <p class="micro" style="color: rgba(0,0,0,0.6);">CAMBORIÚ - SC - BRASIL</p>
+        <p class="micro" style="color: rgba(0,0,0,0.6);">+55 48 99992-1816</p>
+    </div>
+
+    <a href="https://wa.me/5548999921816" class="cta-btn micro reveal" style="border-color: var(--color-dark); color: var(--color-dark);">
+        [ ENTRAR EM CONTATO ]
+    </a>
+</section>
+
+<!-- JS PARA ANIMAÇÃO DE REVEAL AO SCROLL -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { root: null, rootMargin: '0px', threshold: 0.05 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    });
+</script>
+
+<!-- JS NOVO — paralaxe/rolagem exclusiva do HERO -->
+<script>
+    (function () {
+        const heroSection = document.querySelector('.hero');
+        const heroBg = document.getElementById('heroBg');
+        const heroCopy = document.getElementById('heroCopyWrap');
+        if (!heroSection || !heroBg || !heroCopy) return;
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduceMotion) return;
+
+        let ticking = false;
+
+        function update() {
+            const heroHeight = heroSection.offsetHeight || 1;
+            const progress = Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
+
+            heroBg.style.transform = `translateY(${progress * 50}px) scale(${1 + progress * 0.04})`;
+            heroCopy.style.opacity = String(1 - progress * 1.15);
+            heroCopy.style.transform = `translateY(${progress * -36}px)`;
+
+            ticking = false;
+        }
+
+        function onScroll() {
+            if (!ticking) {
+                requestAnimationFrame(update);
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        update();
+    })();
+</script>
+</body>
+</html>

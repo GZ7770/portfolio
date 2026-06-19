@@ -212,6 +212,36 @@
         @media (max-width: 900px) {
             .grid-layout { display: flex; flex-direction: column; gap: 40px; }
             .hide-mobile { display: none; }
+            section { padding: 80px 5vw; } /* Ajuste para espaçamento em mobile */
+            header { padding: 20px 5vw; } /* Ajuste para espaçamento do header em mobile */
+            .doc-panel { padding: 20px; } /* Ajuste do padding do doc-panel em mobile */
+            .doc-line { padding: 10px 0; } /* Ajuste do padding do doc-line em mobile */
+            .title { font-size: 2rem; } /* Ajuste do tamanho da fonte do título em mobile */
+            .subtitle { font-size: 1.2rem; } /* Ajuste do tamanho da fonte do subtítulo em mobile */
+            .quote { font-size: 1.1rem; padding-left: 20px; } /* Ajuste da citação em mobile */
+            .diagram-node { width: 100%; padding: 20px 30px; } /* Ajuste do nó do diagrama em mobile */
+            .instruction-text { padding: 15px; font-size: 10px; } /* Ajuste do texto de instrução em mobile */
+
+            /* Ajustes específicos para o layout da imagem única e textos em mobile */
+            .img-container-full-width {
+                grid-column: span 12;
+                order: -1; /* Mover a imagem para cima em mobile */
+                margin-bottom: 40px; /* Espaço após a imagem em mobile */
+            }
+            .text-container-full-width {
+                grid-column: span 12;
+            }
+        }
+        
+        /* Ajustes específicos para o grid em desktop */
+        @media (min-width: 901px) {
+            .grid-col-1-5 { grid-column: 1 / 5; }
+            .grid-col-6-13 { grid-column: 6 / 13; }
+            .grid-col-1-7 { grid-column: 1 / 7; }
+            .grid-col-8-13 { grid-column: 8 / 13; }
+            /* Classes para o novo layout de 3 textos e 1 imagem */
+            .img-container-full-width { grid-column: 7 / 13; } /* Imagem ocupa a metade direita em desktop */
+            .text-container-full-width { grid-column: 1 / 7; } /* Textos ocupam a metade esquerda em desktop */
         }
     </style>
 </head>
@@ -232,27 +262,27 @@
         <div class="grid-layout w-100 fade-in-up" style="width: 100%;">
             
             <!-- Standard Metadata Block -->
-            <div style="grid-column: 1 / 5;">
+            <div class="grid-col-1-5">
                 <div class="doc-panel">
                     <div class="doc-line" style="padding-top: 0;">
-                        <span class="micro" style="color: var(--color-grey);">CLIENTE</span>
-                        <span class="micro">Importax</span>
+                        <span class="micro" style="color: var(--color-grey);">ESCOPO</span>
+                        <span class="micro">IMPORTAX</span>
                     </div>
                     <div class="doc-line">
-                        <span class="micro" style="color: var(--color-grey);">ESCOPO</span>
+                        <span class="micro" style="color: var(--color-grey);">PERÍODO</span>
                         <div style="text-align: right;">
-                            <span class="micro" style="display: block;">Reestruturação de operação</span>
+                            <span class="micro" style="display: block;">EVOLUÇÃO CONTÍNUA</span>
                         </div>
                     </div>
                     <div class="doc-line">
                         <span class="micro" style="color: var(--color-grey);">STATUS</span>
-                        <span class="micro" style="color: var(--color-olive);">[ RESTRITO ]</span>
+                        <span class="micro" style="color: var(--color-olive);">EM ANDAMENTO [RESTRITO]</span>
                     </div>
                 </div>
             </div>
 
             <!-- Standard Hero Text Block -->
-            <div style="grid-column: 6 / 13; display: flex; flex-direction: column; justify-content: center;">
+            <div class="grid-col-6-13" style="display: flex; flex-direction: column; justify-content: center;">
                 <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// 01.00 — CONTEXTO & DESAFIO</div>
                 
                 <h1 class="title">PLATAFORMA IMPORTAX</h1>
@@ -270,7 +300,7 @@
                 <!-- Restrição NDA Formatada -->
                 <div style="margin-top: 40px; padding-left: 20px; border-left: 1px solid rgba(255,255,255,0.2);">
                     <p class="body" style="font-size: 11px; text-transform: none; letter-spacing: 0.05em; color: var(--color-grey); margin: 0;">
-                        Por questões estratégicas, apenas fragmentos do processo de discovery e protótipos estruturais são apresentados neste case.
+                        Por questões legais de privacidade contratual, apenas fragmentos dos processos de discovery e protótipos são apresentados nesse case.
                     </p>
                 </div>
             </div>
@@ -284,7 +314,7 @@
         <div class="grid-layout">
             
             <!-- Standard My Role (Chips) -->
-            <div style="grid-column: 1 / 7;" class="reveal">
+            <div class="grid-col-1-7 reveal">
                 <div class="micro" style="margin-bottom: 40px; color: var(--color-olive);">/// 02.00 — MINHA ATUAÇÃO</div>
                 
                 <div style="margin-bottom: 30px; max-width: 500px;">
@@ -304,7 +334,7 @@
             </div>
 
             <!-- Standard Value Generated (Checklist) -->
-            <div style="grid-column: 8 / 13;" class="reveal">
+            <div class="grid-col-8-13 reveal">
                 <div class="micro" style="margin-bottom: 40px; color: var(--color-grey);">/// 02.01 — GERAÇÃO DE VALOR</div>
                 
                 <p class="body" style="margin-bottom: 20px;">
@@ -355,7 +385,7 @@
     </section>
 
     <!-- ==========================================
-         STEP 5B: KEY INITIATIVES (Alternating Grid)
+         STEP 5B: KEY INITIATIVES (Three Texts, One Image)
          ========================================== -->
     <section>
         <div class="grid-layout">
@@ -363,69 +393,38 @@
                 <div class="micro" style="margin-bottom: 60px; color: var(--color-olive);">/// 04.00 — ESTRATÉGIA E PROCESSO</div>
             </div>
 
-            <!-- Initiative 1: Discovery -->
-            <div style="grid-column: 1 / 13; margin-bottom: 100px;" class="reveal">
-                <div class="grid-layout" style="gap: 40px; align-items: center;">
-                    <div style="grid-column: 1 / 5;">
-                        <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">INVESTIGAÇÃO</h3>
-                        <p class="body">
-                            A base do projeto foi o aprofundamento operacional, garantindo compreensão antes da solução. Identificamos lacunas processuais que afetavam a experiência como um todo.
-                        </p>
-                    </div>
-                    <div style="grid-column: 5 / 13;">
-                        <div class="img-placeholder" style="height: 50vh;">
-                            <div class="instruction-text">
-                                <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ IMAGE 01: RESEARCH BOARD ]</div>
-                                <p class="body" style="font-size: 12px; line-height: 1.6;">
-                                    "Mapping inconsistencies, pain points and opportunities identified throughout the existing experience."
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Container para os três blocos de texto -->
+            <div class="text-container-full-width reveal">
+                <!-- Iniciativa 1: Investigação -->
+                <div style="margin-bottom: 60px;">
+                    <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">INVESTIGAÇÃO</h3>
+                    <p class="body">
+                        A base do projeto foi o aprofundamento operacional, garantindo compreensão antes da solução. Identificamos lacunas processuais que afetavam a experiência como um todo.
+                    </p>
+                </div>
+
+                <!-- Iniciativa 2: Arquitetura -->
+                <div style="margin-bottom: 60px;">
+                    <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">ARQUITETURA</h3>
+                    <p class="body">
+                        Desenvolvimento de novos modelos mentais. O foco foi reestruturar a hierarquia da informação para suportar fluxos mais intuitivos e escaláveis.
+                    </p>
+                </div>
+
+                <!-- Iniciativa 3: Prototipação -->
+                <div style="margin-bottom: 0px;">
+                    <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">PROTOTIPAÇÃO</h3>
+                    <p class="body">
+                        Validação de cenários futuros utilizando wireframes táticos. A prioridade foi testar a solidez estrutural e a viabilidade operacional das propostas. Estamos nos primeiros testes já coletando resultados de UX com beta testers.
+                    </p>
                 </div>
             </div>
 
-            <!-- Initiative 2: Architecture (Inverted) -->
-            <div style="grid-column: 1 / 13; margin-bottom: 100px;" class="reveal">
-                <div class="grid-layout" style="gap: 40px; align-items: center;">
-                    <div style="grid-column: 1 / 9;">
-                        <div class="img-placeholder" style="height: 50vh;">
-                            <div class="instruction-text">
-                                <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ IMAGE 02: NAVIGATION STRUCTURE ]</div>
-                                <p class="body" style="font-size: 12px; line-height: 1.6;">
-                                    "Exploration of new navigation models and experience architecture."
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="grid-column: 9 / 13;">
-                        <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">ARQUITETURA</h3>
-                        <p class="body">
-                            Desenvolvimento de novos modelos mentais. O foco foi reestruturar a hierarquia da informação para suportar fluxos mais intuitivos e escaláveis.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <!-- Única Imagem para representar todas as iniciativas -->
+            <div class="img-container-full-width reveal">
+                <div class="img-placeholder" style="height: 100%; min-height: 400px;">
+                    <img src="assets/imp1.png" alt="Visão geral do processo Importax (Investigação, Arquitetura e Prototipação)"> 
 
-            <!-- Initiative 3: Prototyping -->
-            <div style="grid-column: 1 / 13;" class="reveal">
-                <div class="grid-layout" style="gap: 40px; align-items: center;">
-                    <div style="grid-column: 1 / 5;">
-                        <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">PROTOTIPAÇÃO</h3>
-                        <p class="body">
-                            Validação de cenários futuros utilizando wireframes táticos. A prioridade foi testar a solidez estrutural e a viabilidade operacional das propostas.
-                        </p>
-                    </div>
-                    <div style="grid-column: 5 / 13;">
-                        <div class="img-placeholder" style="height: 50vh;">
-                            <div class="instruction-text">
-                                <div class="micro" style="color: var(--color-olive); margin-bottom: 10px;">[ IMAGE 03: WIREFRAME DETAIL ]</div>
-                                <p class="body" style="font-size: 12px; line-height: 1.6;">
-                                    "Prototyping future-state scenarios and validating product hypotheses."
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
