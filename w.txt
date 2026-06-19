@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guilherme Zenni | Portfólio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-dark: #101010;
+            --color-olive: #b5bcad;
+            --color-light: #e6e6e6;
+            --color-white: #f0f0f0;
+            --color-grey: #858585;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-tech: 'Inter Tight', sans-serif;
+            --body-text-color: var(--color-grey);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--color-dark);
+            color: var(--color-white);
+            font-family: var(--font-tech);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
+            mix-blend-mode: overlay;
+        }
+
+        /* TYPOGRAPHY */
+        .title { font-family: var(--font-display); font-size: clamp(1.5rem, 2.8vw, 3.5rem); line-height: 1; letter-spacing: 0.05em; text-transform: uppercase; }
+        .body { font-size: 13px; line-height: 1.8; font-weight: 300; color: var(--body-text-color); max-width: 500px; }
+        .micro { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500; }
+
+        /* LAYOUT */
+        header { position: fixed; top: 0; left: 0; width: 100%; padding: 40px 5vw; display: flex; justify-content: space-between; z-index: 999; mix-blend-mode: difference; }
+        section { position: relative; width: 100%; padding: 180px 5vw; }
+        .grid-layout { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
+        a { color: inherit; text-decoration: none; cursor: pointer; }
+        .cta-btn { display: inline-flex; align-items: center; border: 1px solid currentColor; padding: 12px 32px; border-radius: 50px; transition: 0.4s ease; }
+        .cta-btn:hover { background: var(--color-white); color: var(--color-dark); }
+
+        /* HERO REFACTORED */
+        .hero { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: var(--color-dark); }
+        .hero-bg { position: absolute; inset: 0; will-change: transform; z-index: 0; }
+        
+        .hero-photo {
+            position: absolute; inset: 0;
+            background-image: url('assets/imagem hero.png'); /* Certifique-se do caminho */
+            background-size: cover; background-position: 50% 47%;
+            filter: grayscale(1) contrast(1.1) brightness(0.9);
+        }
+
+        .hero-content-frame {
+            position: relative;
+            padding: 80px;
+            border: 0px solid rgba(255,255,255,0.2);
+            transition: border-width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10;
+            text-align: center;
+        }
+        .hero-content-frame.active-frame { border-width: 1px; }
+
+        /* SECTIONS */
+        .olive-section { background-color: var(--color-olive); color: var(--color-dark); --body-text-color: rgba(0,0,0,0.7); }
+        .dark-section { background-color: var(--color-dark); }
+        .light-section { background-color: var(--color-light); color: var(--color-dark); text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<div class="noise-overlay"></div>
+
+<header>
+    <div class="micro">[ 2026 ] /// GUILHERME ZENNI</div>
+</header>
+
+<section class="hero" id="heroSection">
+    <div class="hero-bg" id="heroBg">
+        <div class="hero-photo"></div>
+    </div>
+
+    <div class="hero-content-frame" id="heroFrame">
+        <div id="heroCopyWrap">
+            <h1 class="title" style="font-size: clamp(3rem, 10vw, 8rem);">SISTEMAS SÃO CULTURA</h1>
+            <p class="body" style="margin: 20px auto; font-weight: 600;">Sistemas são feitos de pessoas e significados.</p>
+        </div>
+    </div>
+</section>
+
+<!-- SEÇÕES RESTANTES MANTIDAS DO ORIGINAL -->
+<section class="olive-section">
+    <div class="grid-layout">
+        <div style="grid-column: 1 / 5;" class="reveal">
+            <div class="micro">/// 01 — POSICIONAMENTO</div>
+        </div>
+        <div style="grid-column: 7 / 13;" class="reveal">
+            <p class="body">Costumo atuar em contextos onde complexidade operacional encontra a necessidade humana.</p>
+        </div>
+    </div>
+</section>
+
+<section class="dark-section" style="height: 100vh;"></section>
+
+<script>
+    // Intersection Observer para as outras seções
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Scroll Animation para o Hero
+    const heroBg = document.getElementById('heroBg');
+    const heroCopy = document.getElementById('heroCopyWrap');
+    const heroFrame = document.getElementById('heroFrame');
+
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const progress = Math.min(scrolled / window.innerHeight, 1);
+
+        // 1. Imagem aumenta levemente e desce
+        heroBg.style.transform = `scale(${1 + progress * 0.2}) translateY(${progress * 100}px)`;
+        
+        // 2. Texto desaparece
+        heroCopy.style.opacity = 1 - (progress * 2);
+        
+        // 3. Moldura aparece
+        if (progress > 0.1) {
+            heroFrame.classList.add('active-frame');
+        } else {
+            heroFrame.classList.remove('active-frame');
+        }
+    });
+</script>
+</body>
+</html>

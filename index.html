@@ -251,11 +251,11 @@
 
         .hero-photo {
             position: absolute;
-            top: -6%; left: -6%; right: -6%; bottom: -6%;
-            /* COLE SEU CÓDIGO DA IMAGEM EM BASE64 NO LOCAL INDICADO ABAIXO */
-            background-image: url('data:image/jpeg;base64,COLOQUE_AQUI_O_SEU_CODIGO_BASE64_SALVO');
-            background-size: cover;
-            background-position: 50% 47%;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 50% 47%;
             filter: grayscale(1) contrast(1.12) brightness(0.92);
             animation: hero-kenburns 18s ease-in-out infinite alternate;
             will-change: transform;
@@ -344,18 +344,16 @@
 <!-- HERO -->
 <section class="hero">
 
-    <!-- Fundo: fotografia aérea real (sem geração por IA), com color match via CSS -->
+    <!-- Fundo: Adicionado a imagem aqui para garantir que ela exista -->
     <div class="hero-bg" id="heroBg">
-        <div class="hero-photo"></div>
+        <img src="assets/imagem hero.png" style="width:100%; height:100%; object-fit:cover; display:block;" alt="Hero">
         <div class="hero-duotone"></div>
         <div class="hero-light"></div>
         <div class="hero-vignette"></div>
     </div>
 
     <div class="grid-layout" style="width: 100%; position: relative; z-index: 10;">
-
         <div style="grid-column: 1 / 13;" class="hero-copy-wrap" id="heroCopyWrap">
-
             <h1 class="title hero-title load-reveal" style="text-align: left;">
                 <span>SISTEMAS</span><span>SÃO</span><span>CULTURA.</span>
             </h1>
@@ -372,7 +370,6 @@
                 </a>
             </div>
         </div>
-
     </div>
 </section>
 
@@ -473,11 +470,13 @@
     
     <div class="title single-line reveal" style="margin: 60px 0;">
         GUILHERME ZENNI
-    </div>
+  </div>
 
     <div style="display: flex; gap: 40px; margin-bottom: 60px; flex-wrap: wrap; justify-content: center;" class="reveal">
         <p class="micro" style="color: rgba(0,0,0,0.6);">CAMBORIÚ - SC - BRASIL</p>
-        <p class="micro" style="color: rgba(0,0,0,0.6);">+55 48 99992-1816</p>
+        <p class="micro" style="color: rgba(0,0,0,0.6);">
+            <a href="https://www.linkedin.com/in/guilhermezenni/" target="_blank" style="color: inherit; text-decoration: none;">LINKEDIN</a>
+        </p>
     </div>
 
     <a href="https://wa.me/5548999921816" class="cta-btn micro reveal" style="border-color: var(--color-dark); color: var(--color-dark);">
