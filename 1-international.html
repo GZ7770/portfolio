@@ -2,9 +2,8 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="./favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Importax | Case Study</title>
+    <title>WTM Ecosystem | Guilherme Zenni</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -121,8 +120,9 @@
         .grid-layout { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
 
         /* ========================================================
-           03. COMPONENTS
+           03. COMPONENTS (Metadata, Chips, Checklists, Images)
            ======================================================== */
+        /* Metadata Block */
         .doc-panel {
             border: 1px solid rgba(255, 255, 255, 0.1);
             background: rgba(0, 0, 0, 0.4);
@@ -135,6 +135,7 @@
         }
         .doc-line:last-child { border-bottom: none; padding-bottom: 0; }
 
+        /* Chips */
         .chip {
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 10px 16px; display: inline-block;
@@ -143,6 +144,7 @@
             text-transform: uppercase; border-radius: 0px;
         }
 
+        /* Checklist */
         .checklist { list-style: none; margin-top: 20px; }
         .checklist li {
             position: relative; padding-left: 20px; margin-bottom: 15px;
@@ -154,6 +156,7 @@
             color: var(--color-olive); font-size: 10px; font-family: var(--font-tech);
         }
 
+        /* Image Presentation */
         .img-placeholder {
             width: 100%; background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -164,42 +167,6 @@
         .img-placeholder img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover; z-index: 2;
-        }
-        .instruction-text {
-            position: relative; z-index: 3; max-width: 450px;
-            background: var(--color-dark); padding: 25px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        /* --------------------------------------------------------
-           IMPORTAX SPECIFIC EXTENSION (Process Diagram)
-           -------------------------------------------------------- */
-        .diagram-container {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 80px 0;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            position: relative;
-        }
-        .diagram-node {
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: var(--color-dark);
-            padding: 30px 40px; text-align: center; width: 300px;
-            position: relative; z-index: 2;
-        }
-        .diagram-node.highlight {
-            border-color: var(--color-olive);
-            background: rgba(181, 188, 173, 0.05);
-        }
-        .diagram-arrow {
-            height: 60px; width: 1px;
-            background: rgba(255, 255, 255, 0.3);
-            position: relative;
-        }
-        .diagram-arrow::after {
-            content: ''; position: absolute; bottom: 0; left: -4px;
-            border-left: 5px solid transparent; border-right: 5px solid transparent;
-            border-top: 5px solid rgba(255, 255, 255, 0.3);
         }
 
         /* ========================================================
@@ -213,25 +180,13 @@
         @media (max-width: 900px) {
             .grid-layout { display: flex; flex-direction: column; gap: 40px; }
             .hide-mobile { display: none; }
-            section { padding: 80px 5vw; } /* Ajuste para espaçamento em mobile */
-            header { padding: 20px 5vw; } /* Ajuste para espaçamento do header em mobile */
-            .doc-panel { padding: 20px; } /* Ajuste do padding do doc-panel em mobile */
-            .doc-line { padding: 10px 0; } /* Ajuste do padding do doc-line em mobile */
-            .title { font-size: 2rem; } /* Ajuste do tamanho da fonte do título em mobile */
-            .subtitle { font-size: 1.2rem; } /* Ajuste do tamanho da fonte do subtítulo em mobile */
-            .quote { font-size: 1.1rem; padding-left: 20px; } /* Ajuste da citação em mobile */
-            .diagram-node { width: 100%; padding: 20px 30px; } /* Ajuste do nó do diagrama em mobile */
-            .instruction-text { padding: 15px; font-size: 10px; } /* Ajuste do texto de instrução em mobile */
-
-            /* Ajustes específicos para o layout da imagem única e textos em mobile */
-            .img-container-full-width {
-                grid-column: span 12;
-                order: -1; /* Mover a imagem para cima em mobile */
-                margin-bottom: 40px; /* Espaço após a imagem em mobile */
-            }
-            .text-container-full-width {
-                grid-column: span 12;
-            }
+            section { padding: 80px 5vw; } 
+            header { padding: 20px 5vw; } 
+            .doc-panel { padding: 20px; } 
+            .doc-line { padding: 10px 0; } 
+            .title { font-size: 2rem; } 
+            .subtitle { font-size: 1.2rem; } 
+            .quote { font-size: 1.1rem; padding-left: 20px; } 
         }
         
         /* Ajustes específicos para o grid em desktop */
@@ -240,9 +195,20 @@
             .grid-col-6-13 { grid-column: 6 / 13; }
             .grid-col-1-7 { grid-column: 1 / 7; }
             .grid-col-8-13 { grid-column: 8 / 13; }
-            /* Classes para o novo layout de 3 textos e 1 imagem */
-            .img-container-full-width { grid-column: 7 / 13; } /* Imagem ocupa a metade direita em desktop */
-            .text-container-full-width { grid-column: 1 / 7; } /* Textos ocupam a metade esquerda em desktop */
+            .grid-col-text-half { grid-column: 1 / 7; }
+            .grid-col-img-half { grid-column: 7 / 13; }
+        }
+
+        /* Ajustes para mobile para as novas classes de grid */
+        @media (max-width: 900px) {
+            .grid-col-1-5,
+            .grid-col-6-13,
+            .grid-col-1-7,
+            .grid-col-8-13,
+            .grid-col-text-half,
+            .grid-col-img-half {
+                grid-column: span 12; 
+            }
         }
     </style>
 </head>
@@ -253,7 +219,7 @@
     <!-- HEADER (Standard Navigation Pattern) -->
     <header>
         <a href="index.html" class="micro">[ ← VOLTAR / PORTFÓLIO ]</a>
-        <div class="micro hide-mobile">DOC. ID: IMPORTAX // STRATEGIC REDESIGN</div>
+        <div class="micro hide-mobile">DOC. ID: WTM-2026 // SYSTEM ARCHITECTURE</div>
     </header>
 
     <!-- ==========================================
@@ -267,12 +233,12 @@
                 <div class="doc-panel">
                     <div class="doc-line" style="padding-top: 0;">
                         <span class="micro" style="color: var(--color-grey);">ESCOPO</span>
-                        <span class="micro">IMPORTAX</span>
+                        <span class="micro">Platform Ecosystem</span>
                     </div>
                     <div class="doc-line">
                         <span class="micro" style="color: var(--color-grey);">PERÍODO</span>
                         <div style="text-align: right;">
-                            <span class="micro" style="display: block;">EVOLUÇÃO CONTÍNUA</span>
+                            <span class="micro" style="display: block;">Evolução Contínua</span>
                         </div>
                     </div>
                     <div class="doc-line">
@@ -284,20 +250,22 @@
 
             <!-- Standard Hero Text Block -->
             <div class="grid-col-6-13" style="display: flex; flex-direction: column; justify-content: center;">
-                <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// 01.00 — CONTEXTO & DESAFIO</div>
+                <div class="micro" style="margin-bottom: 20px; color: var(--color-olive);">/// 01.00 — CONTEXTO</div>
                 
-                <h1 class="title">PLATAFORMA IMPORTAX</h1>
+                <h1 class="title">WTM PLATFORM ECOSYSTEM</h1>
                 <h2 class="subtitle" style="margin-top: 20px;">
-                    Mapeamento operacional e arquitetura de informação para fluxos complexos.
+                    Evolução de produtos que sustentam operações críticas do negócio.
                 </h2>
                 
                 <p class="body" style="margin-top: 40px;">
-                    O desafio central não se resumia a uma renovação de interface. Tratava-se de compreender e reestruturar um processo operacional crítico, lidando com fluxos fragmentados, múltiplas regras de negócio e dependências de informação.
+                    Atuei na evolução contínua de produtos internos utilizados diariamente por diferentes áreas operacionais. 
                 </p>
                 <p class="body" style="margin-top: 15px;">
-                    A complexidade existia não apenas na tela, mas na distribuição pulverizada de decisões ao longo de toda a experiência. O foco primordial foi investigar estruturalmente o problema, sintetizar o escopo e redefinir o modelo mental da plataforma antes de propor qualquer solução visual.
+                    Minha participação envolveu iniciativas de Design System, evolução de interfaces, arquitetura da informação, pesquisa com usuários e estruturação de fluxos críticos, contribuindo para uma experiência mais consistente entre diferentes produtos do ecossistema.
                 </p>
-
+                <p class="body" style="margin-top: 15px;">
+                    Apesar das diferenças entre os produtos, todos compartilham uma mesma característica: suportam o núcleo operacional da empresa e impactam diretamente sua execução.
+                </p>
                 <!-- Restrição NDA Formatada -->
                 <div style="margin-top: 40px; padding-left: 20px; border-left: 1px solid rgba(255,255,255,0.2);">
                     <p class="body" style="font-size: 11px; text-transform: none; letter-spacing: 0.05em; color: var(--color-grey); margin: 0;">
@@ -319,18 +287,18 @@
                 <div class="micro" style="margin-bottom: 40px; color: var(--color-olive);">/// 02.00 — MINHA ATUAÇÃO</div>
                 
                 <div style="margin-bottom: 30px; max-width: 500px;">
+                    <span class="chip">Design de Produto</span>
                     <span class="chip">UX Research</span>
-                    <span class="chip">Product Discovery</span>
-                    <span class="chip">Information Architecture</span>
-                    <span class="chip">Flow Mapping</span>
-                    <span class="chip">Navigation Restructuring</span>
-                    <span class="chip">Wireframing</span>
-                    <span class="chip">Cross-functional Collab</span>
-                    <span class="chip">Operational Analysis</span>
+                    <span class="chip">Arquitetura da Informação</span>
+                    <span class="chip">Design System</span>
+                    <span class="chip">Descoberta e Priorização</span>
+                    <span class="chip">Evolução de Interfaces</span>
+                    <span class="chip">Colaboração com Engenharia</span>
+                    <span class="chip">Exploração assistida por IA aplicada a produto</span>
                 </div>
 
                 <p class="body">
-                    A atuação exigiu compreender as regras invisíveis que ditam a operação, mapear dependências cruzadas e conectar necessidades sistêmicas com os objetivos do negócio.
+                    Minha atuação esteve centrada na evolução contínua do sistema e na redução de fricção operacional entre diferentes áreas.
                 </p>
             </div>
 
@@ -339,15 +307,15 @@
                 <div class="micro" style="margin-bottom: 40px; color: var(--color-grey);">/// 02.01 — GERAÇÃO DE VALOR</div>
                 
                 <p class="body" style="margin-bottom: 20px;">
-                    O impacto do design foi medido pela capacidade de criar clareza e alinhar perspectivas:
+                    O foco do trabalho não estava na camada visual, mas na estrutura que sustenta a operação:
                 </p>
 
                 <ul class="checklist">
-                    <li>Estruturação da complexidade e redução de ambiguidades sistêmicas</li>
-                    <li>Apoio direto à tomada de decisão operacional</li>
-                    <li>Alinhamento tangível entre visão de negócio, operação e usuário</li>
-                    <li>Definição de novos modelos de navegação e arquitetura da informação</li>
-                    <li>Criação de entendimento compartilhado entre os times</li>
+                    <li>Padronização de experiências entre módulos</li>
+                    <li>Redução de inconsistências sistêmicas</li>
+                    <li>Criação de padrões reutilizáveis de interface</li>
+                    <li>Apoio à tomada de decisão via pesquisa e dados de uso</li>
+                    <li>Alinhamento entre operação, produto e tecnologia</li>
                 </ul>
             </div>
 
@@ -355,92 +323,60 @@
     </section>
 
     <!-- ==========================================
-         STEP 5A: COGNITIVE LOAD DIAGRAM
-         ========================================== -->
-    <section style="border-top: 1px solid rgba(255,255,255,0.05);">
-        <div class="grid-layout">
-            <div style="grid-column: 1 / 13;" class="reveal">
-                
-                <div class="diagram-container">
-                    <div style="position: absolute; top: -10px; left: 0; background: var(--color-dark); padding: 0 10px;" class="micro" style="color: var(--color-olive);">
-                        /// 03.00 — REDUÇÃO DE CARGA COGNITIVA
-                    </div>
-
-                    <div class="diagram-node">
-                        <div class="micro" style="color: var(--color-grey); margin-bottom: 5px;">FLUXO ATUAL</div>
-                        <div class="title" style="font-size: 2.5rem; letter-spacing: 0; transform: none;">47</div>
-                        <div class="micro">INTERAÇÕES</div>
-                    </div>
-
-                    <div class="diagram-arrow"></div>
-
-                    <div class="diagram-node highlight">
-                        <div class="micro" style="color: var(--color-olive); margin-bottom: 5px;">FLUXO PROPOSTO</div>
-                        <div class="title" style="font-size: 2.5rem; letter-spacing: 0; transform: none; color: var(--color-olive);">18</div>
-                        <div class="micro">INTERAÇÕES</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         STEP 5B: KEY INITIATIVES (Three Texts, One Image)
+         STEP 5: KEY INITIATIVES (Three Texts, One Image)
          ========================================== -->
     <section>
         <div class="grid-layout">
             <div style="grid-column: 1 / 13;" class="reveal">
-                <div class="micro" style="margin-bottom: 60px; color: var(--color-olive);">/// 04.00 — ESTRATÉGIA E PROCESSO</div>
+                <div class="micro" style="margin-bottom: 60px; color: var(--color-olive);">/// 03.00 — PRINCIPAIS INICIATIVAS</div>
             </div>
 
-            <!-- Container para os três blocos de texto -->
-            <div class="text-container-full-width reveal">
-                <!-- Iniciativa 1: Investigação -->
+            <!-- Content block for three texts -->
+            <div class="grid-col-text-half reveal">
+                <!-- Initiative 1: WTM International -->
                 <div style="margin-bottom: 60px;">
-                    <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">INVESTIGAÇÃO</h3>
+                    <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">WTM INTERNATIONAL</h3>
                     <p class="body">
-                        A base do projeto foi o aprofundamento operacional, garantindo compreensão antes da solução. Identificamos lacunas processuais que afetavam a experiência como um todo.
+                        Evolução da experiência do produto com definição de componentes, fluxos e padrões de interface utilizados ao longo da plataforma.
                     </p>
                 </div>
 
-                <!-- Iniciativa 2: Arquitetura -->
+                <!-- Initiative 2: Admin Backoffice -->
                 <div style="margin-bottom: 60px;">
-                    <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">ARQUITETURA</h3>
+                    <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">ADMIN BACKOFFICE</h3>
                     <p class="body">
-                        Desenvolvimento de novos modelos mentais. O foco foi reestruturar a hierarquia da informação para suportar fluxos mais intuitivos e escaláveis.
+                        Reestruturação de módulos operacionais críticos, com foco em consistência, escalabilidade e redução de complexidade operacional.
                     </p>
                 </div>
 
-                <!-- Iniciativa 3: Prototipação -->
+                <!-- Initiative 3: MoR -->
                 <div style="margin-bottom: 0px;">
-                    <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">PROTOTIPAÇÃO</h3>
+                    <h3 class="title" style="font-size: 2.5rem; margin-bottom: 15px;">MoR</h3>
                     <p class="body">
-                        Validação de cenários futuros utilizando wireframes táticos. A prioridade foi testar a solidez estrutural e a viabilidade operacional das propostas. Estamos nos primeiros testes já coletando resultados de UX com beta testers.
+                        Solução white label para múltiplos clientes, exigindo arquitetura flexível de interface e lógica adaptável a diferentes contextos de negócio.
                     </p>
                 </div>
             </div>
 
-            <!-- Única Imagem para representar todas as iniciativas -->
-            <div class="img-container-full-width reveal">
-                <div class="img-placeholder" style="height: 100%; min-height: 400px;">
-                    <img src="assets/imp1.png" alt="Visão geral do processo Importax (Investigação, Arquitetura e Prototipação)"> 
-
+            <!-- Single Image Block representing all initiatives -->
+            <div class="grid-col-img-half reveal">
+                <div class="img-placeholder" style="height: 100%; min-height: 400px;"> 
+                    <img src="assets/int5.png" alt="WTM Ecosystem Overview (Image representing International Platform, Admin Backoffice, and MoR)"> 
                 </div>
             </div>
 
         </div>
     </section>
 
-    <!-- ==========================================
-         STEP 6: LEARNINGS
-         ========================================== -->
-    <section style="border-top: 1px solid rgba(255,255,255,0.05);">
+    <!-- APRENDIZADOS -->
+    <section style="padding-top: 40px;">
         <div class="grid-layout reveal">
-            <div style="grid-column: 1 / 13;">
-                <div class="micro" style="margin-bottom: 40px; color: var(--color-olive);">/// 05.00 — APRENDIZADOS</div>
+                        
+            <!-- Aprendizados  -->
+            <div style="grid-column: 7 / 13;">
+                <div class="micro" style="margin-bottom: 30px; color: var(--color-olive);">/// APRENDIZADOS</div>
                 <p class="quote">
-                    "Produzir mais telas não significa, necessariamente, gerar melhores decisões. Em ambientes complexos, o maior impacto do design está em criar entendimento compartilhado e transformar informações fragmentadas em modelos coerentes."
+                    Consistência não é um resultado visual — é consequência de decisões estruturais alinhadas entre produto, tecnologia e operação.<br><br>Em sistemas complexos, clareza e previsibilidade têm mais impacto do que variações isoladas de interface.
                 </p>
             </div>
         </div>
@@ -453,13 +389,13 @@
         <div class="grid-layout">
             <div style="grid-column: 1 / 13; display: flex; justify-content: space-between; align-items: center;" class="reveal">
                 <div>
-                    <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">PROJETO ANTERIOR</div>
-                    <a href="international.html" class="title" style="font-size: 2rem; color: var(--color-grey);">WTM PLATFORM ←</a>
+                    <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">RETORNAR</div>
+                    <a href="index.html" class="title" style="font-size: 2rem; color: var(--color-grey);">HOME</a>
                 </div>
                 
                 <div style="text-align: right;">
                     <div class="micro" style="color: var(--color-grey); margin-bottom: 10px;">PRÓXIMO PROJETO</div>
-                    <a href="ngk.html" class="title" style="font-size: 2rem;">NGK LATAM →</a>
+                    <a href="importax.html" class="title" style="font-size: 2rem;">IMPORTAX →</a>
                 </div>
             </div>
         </div>
